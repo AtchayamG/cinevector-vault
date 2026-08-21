@@ -9,7 +9,7 @@ logger = logging.getLogger("cinevector.clickhouse")
 
 class ClickHouseService:
     """
-    ClickHouse Cloud & MergeTree Vector Store integration for CineVector Vault.
+    ClickHouse Live Cluster & MergeTree Vector Store integration for CineVector Vault.
     Handles columnar video frame indexing, vector continuity matching, and SQL analytics.
     Direct clickhouse-connect is reserved for schema setup and bootstrap queries.
     """
@@ -66,7 +66,7 @@ class ClickHouseService:
                     database=self.database,
                     secure=settings.CLICKHOUSE_SECURE
                 )
-                logger.info("Connected to ClickHouse Cloud cluster for bootstrap operations.")
+                logger.info("Connected to live ClickHouse cluster for bootstrap operations.")
             except Exception as e:
                 logger.warning(f"ClickHouse live bootstrap client failed: {e}")
                 self.client = None
@@ -127,7 +127,7 @@ class ClickHouseService:
                     return {
                         "status": "success",
                         "mode": "live",
-                        "evidence_source": "ClickHouse Cloud (Live Direct Client)",
+                        "evidence_source": "ClickHouse Live Cluster (Live Direct Client)",
                         "columns": res.column_names,
                         "rows": res.result_rows,
                         "row_count": len(res.result_rows),
@@ -139,13 +139,13 @@ class ClickHouseService:
                         "status": "error",
                         "mode": "live_error",
                         "error": str(e),
-                        "evidence_source": "ClickHouse Cloud (Live Query Failed)"
+                        "evidence_source": "ClickHouse Live Cluster (Live Query Failed)"
                     }
             return {
                 "status": "error",
                 "mode": "live_unavailable",
                 "error": "ClickHouse live client not connected",
-                "evidence_source": "ClickHouse Cloud (Unconfigured)"
+                "evidence_source": "ClickHouse Live Cluster (Unconfigured)"
             }
 
         # Demo mode
@@ -174,7 +174,7 @@ class ClickHouseService:
                     return {
                         "status": "success",
                         "mode": "live",
-                        "evidence_source": "ClickHouse Cloud (Live Vector Query)",
+                        "evidence_source": "ClickHouse Live Cluster (Live Vector Query)",
                         "character": character,
                         "query_latency_ms": duration_ms,
                         "rows": res.result_rows
@@ -184,13 +184,13 @@ class ClickHouseService:
                         "status": "error",
                         "mode": "live_error",
                         "error": str(e),
-                        "evidence_source": "ClickHouse Cloud (Live Vector Search Failed)"
+                        "evidence_source": "ClickHouse Live Cluster (Live Vector Search Failed)"
                     }
             return {
                 "status": "error",
                 "mode": "live_unavailable",
                 "error": "Live ClickHouse connection unavailable",
-                "evidence_source": "ClickHouse Cloud (Unconfigured)"
+                "evidence_source": "ClickHouse Live Cluster (Unconfigured)"
             }
 
         # Demo Mode: dynamic matching using input description/tokens

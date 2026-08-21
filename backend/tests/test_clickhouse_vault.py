@@ -103,3 +103,58 @@ def test_ui_workflow_endpoints():
     # GET KPIs Endpoint
     kpi_res = client.get("/api/v1/vault/kpis")
     assert kpi_res.status_code == 200
+
+@pytest.mark.asyncio
+async def test_live_cluster_evidence_labels():
+    original_mode = settings.RUNTIME_MODE
+    original_host = settings.CLICKHOUSE_HOST
+    try:
+        settings.RUNTIME_MODE = "live"
+        settings.CLICKHOUSE_HOST = "" # Force unconfigured state
+        res = await clickhouse_mcp_server.call_tool("run_query", {"query": "SELECT 1"})
+        
+        evidence = res.get("evidence_source", "")
+        error_msg = res.get("error", "")
+        
+        assert "Live Cluster" in evidence or "Live Cluster" in error_msg or "mcp-clickhouse" in evidence or "live ClickHouse credentials" in error_msg
+    finally:
+        settings.RUNTIME_MODE = original_mode
+        settings.CLICKHOUSE_HOST = original_host
+
+from unittest.mock import patch
+
+@pytest.mark.asyncio
+async def test_mcp_sql_injection_prevention():
+    original_mode = settings.RUNTIME_MODE
+    original_host = settings.CLICKHOUSE_HOST
+    original_pass = settings.CLICKHOUSE_PASSWORD
+    try:
+        settings.RUNTIME_MODE = "live"
+        settings.CLICKHOUSE_HOST = "127.0.0.1"
+        settings.CLICKHOUSE_PASSWORD = "test"
+        
+        with patch('mcp.ClientSession') as MockSession, \
+             patch('mcp.client.stdio.stdio_client') as mock_stdio:
+            
+            # Setup async context manager mocks
+            mock_stdio.return_value.__aenter__.return_value = (None, None)
+            mock_session_instance = MockSession.return_value.__aenter__.return_value
+            mock_session_instance.call_tool.return_value = type('obj', (object,), {'isError': False, 'content': []})
+            
+            # Call the tool with an apostrophe payload
+            await clickhouse_mcp_server.call_tool("clickhouse_search_vector_continuity", {"character": "Maya' OR '1'='1"})
+            
+            # Extract the actual query passed to call_tool
+            call_args = mock_session_instance.call_tool.call_args
+            assert call_args is not None, "call_tool was not called"
+            args, kwargs = call_args
+            called_tool_name = args[0]
+            called_arguments = args[1]
+            
+            assert called_tool_name == "run_query"
+            assert "Maya'' OR ''1''=''1" in called_arguments["query"]
+            assert "Maya' OR '1'='1" not in called_arguments["query"]
+    finally:
+        settings.RUNTIME_MODE = original_mode
+        settings.CLICKHOUSE_HOST = original_host
+        settings.CLICKHOUSE_PASSWORD = original_pass

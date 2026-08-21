@@ -61,7 +61,7 @@ class ClickHouseMCPClient:
             return {
                 "status": "error",
                 "mode": "live_unavailable",
-                "error": "Live ClickHouse Cloud credentials (CLICKHOUSE_HOST, CLICKHOUSE_PASSWORD) not configured in .env",
+                "error": "live ClickHouse credentials (CLICKHOUSE_HOST, CLICKHOUSE_PASSWORD) not configured in .env",
                 "evidence_source": "mcp-clickhouse (Live Stdio Session Unconfigured)"
             }
 
@@ -91,9 +91,12 @@ class ClickHouseMCPClient:
             if tool_name == "clickhouse_search_vector_continuity":
                 mcp_tool_name = "run_query"
                 char = arguments.get("character", "Maya Vance")
-                mcp_arguments = {"query": f"SELECT shot_id, scene, character, costume, lighting FROM video_frames WHERE character = '{char}' LIMIT 3"}
+                # Escape single quotes for SQL string literal interpolation
+                safe_char = char.replace("'", "''")
+                mcp_arguments = {"query": f"SELECT shot_id, scene, character, costume, lighting FROM video_frames WHERE character = '{safe_char}' LIMIT 3"}
             elif tool_name == "clickhouse_execute_sql":
                 mcp_tool_name = "run_query"
+                # Intentionally user-entered SQL console behavior is passed as arbitrary read-only MCP query capability
                 mcp_arguments = {"query": arguments.get("sql", "SELECT 1")}
 
             async with stdio_client(server_params) as (read, write):

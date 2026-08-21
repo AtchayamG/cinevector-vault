@@ -14,7 +14,7 @@
 ---
 
 ## 🌟 Overview
-**CineVector Vault** is a multimodal media data lake and vector continuity search engine powered by official **ClickHouse Cloud MCP (`mcp-clickhouse`)** and **Gemini 2.5 Flash**. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
+**CineVector Vault** is a multimodal media data lake and vector continuity search engine powered by **official mcp-clickhouse connected to a live ClickHouse cluster** and **Gemini 2.5 Flash**. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
 
 ---
 
@@ -43,7 +43,7 @@
 
 ### ClickHouse Database Ports
 - **Port 8123**: Standard unencrypted HTTP protocol port.
-- **Port 8443**: Standard HTTPS/TLS secure port (default for ClickHouse Cloud).
+- **Port 8443**: Standard HTTPS/TLS secure port (default for ClickHouse secure connections).
 
 ### Official MCP Transport Settings
 - The application uses a managed **stdio session** via the official Python `mcp` SDK to launch the installed `mcp-clickhouse` server process.
@@ -62,7 +62,7 @@ pip install -r requirements.txt
 
 # 3. Configure environment
 cp ../.env.example .env
-# Edit .env to set RUNTIME_MODE=demo (local fixture) or RUNTIME_MODE=live (ClickHouse Cloud + Gemini credentials)
+# Edit .env to set RUNTIME_MODE=demo (local fixture) or RUNTIME_MODE=live (Live ClickHouse cluster + Gemini credentials)
 
 # 4. Start backend server
 python run_backend.py

@@ -21,15 +21,15 @@ CineVector Vault has been updated to be fully truthful for the ClickHouse track.
 - `docs/*.md`: Updated evidence matrix, architecture whitepaper, Devpost draft, demo video script, and agent handoffs.
 
 ## Verification
-- `pytest tests/ -v`: 100% Passed (7/7 tests passed).
+- `pytest tests/ -v`: 100% Passed (9/9 tests passed).
 - `gitleaks dir --no-banner --redact .`: 0 leaks found.
 - Browser smoke test: `GET /`, `GET /api/v1/health`, `POST /api/v1/vault/search/continuity`, `POST /api/v1/vault/sql` all return HTTP 200 clean success with zero console errors or favicon 404s.
 
 ## Remaining Work
-- **Live Cloud Verification**: To record live cluster proof, provide `CLICKHOUSE_HOST` and `CLICKHOUSE_PASSWORD` in `.env` along with `GEMINI_API_KEY`, set `RUNTIME_MODE=live`, and execute an authenticated smoke call.
+- **Live Cluster Verification**: To record live cluster proof, provide `CLICKHOUSE_HOST` and `CLICKHOUSE_PASSWORD` in `.env` along with `GEMINI_API_KEY`, set `RUNTIME_MODE=live`, and execute an authenticated smoke call.
 
 ## Risks
-- Live execution requires network connectivity to ClickHouse Cloud (port 8443 HTTPS) and Google GenAI API endpoints. If credentials or network connection are unavailable, system correctly reports `live_unavailable` / `live_error` as required.
+- Live execution requires network connectivity to a live ClickHouse cluster and Google GenAI API endpoints. If credentials or network connection are unavailable, system correctly reports `live_unavailable` / `live_error` as required.
 
 ## Notes For Integrator
 - ClickHouse HTTP Port 8123 is unencrypted, whereas Port 8443 uses TLS/HTTPS (standard for ClickHouse Cloud).
