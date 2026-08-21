@@ -5,7 +5,7 @@
 This document provides independent verification of the genuine partner-runtime proof against a disposable self-hosted ClickHouse cluster.
 
 ## Architecture Distinction
-- **Verified Status**: Official `mcp-clickhouse` runtime execution against a self-hosted ClickHouse Live Cluster (Version 25.8.31.9) via HTTP interface is **PASS**.
+- **Verified Status**: Official `mcp-clickhouse` runtime execution against a self-hosted ClickHouse cluster (Version 25.8.31.9) via HTTP interface is **PASS**.
 - **Optional Status**: ClickHouse Cloud-specific proof is optional and was not performed.
 
 ## Reproducible Procedure (Secret-Free)

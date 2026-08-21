@@ -158,3 +158,28 @@ async def test_mcp_sql_injection_prevention():
         settings.RUNTIME_MODE = original_mode
         settings.CLICKHOUSE_HOST = original_host
         settings.CLICKHOUSE_PASSWORD = original_pass
+def test_ui_xss_prevention():
+    ui_res = client.get('/')
+    assert ui_res.status_code == 200
+    assert '.innerHTML = `' not in ui_res.text
+    assert 'document.createElement' in ui_res.text
+    assert 'textContent' in ui_res.text
+
+def test_api_hostile_payloads():
+    hostile_html = '<script>alert("xss")</script>\"'
+    cont_res = client.post(
+        '/api/v1/vault/search/continuity',
+        json={'character': hostile_html, 'shot_description': hostile_html, 'min_similarity': 0.85}
+    )
+    assert cont_res.status_code == 200
+    data = cont_res.json()
+    assert 'error' in data or 'status' in data
+
+def test_demo_labels_on_paint():
+    ui_res = client.get('/')
+    assert ui_res.status_code == 200
+    assert '1. Scene Shot Ingest & Local Deterministic Continuity Fixtures' in ui_res.text
+    assert '2. Local Vector Match Similarity Fixtures' in ui_res.text
+    assert '3. Local SQL Fixtures Console' in ui_res.text
+    assert '⚡ Run Local Deterministic Continuity Fixtures' in ui_res.text
+    assert "Local fixture matched reference shots:" in ui_res.text

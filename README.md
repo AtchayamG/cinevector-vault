@@ -14,7 +14,7 @@
 ---
 
 ## 🌟 Overview
-**CineVector Vault** is a multimodal media data lake and vector continuity search engine powered by **official mcp-clickhouse connected to a live ClickHouse cluster** and **Gemini 2.5 Flash**. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
+**CineVector Vault** is a multimodal media data lake and vector continuity search engine. The default public evaluator uses deterministic local fixtures. Official **mcp-clickhouse** connected to a live ClickHouse cluster and **Gemini 2.5 Flash** are implemented as live integration paths. Official mcp-clickhouse was proven against self-hosted ClickHouse 25.8.31.9, and the independent Gemini service smoke passed. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
 
 ---
 
@@ -83,3 +83,13 @@ python -m pytest -q
 
 ## 📄 License
 Licensed under the **[Apache License 2.0](LICENSE)**.
+
+## 🚀 Public Deployment (Vercel)
+
+A public FastAPI deployment can be easily hosted on Vercel using the provided configuration.
+The public deployment defaults to honest demo fixtures (RUNTIME_MODE=demo).
+
+1. Import your project into Vercel.
+2. In the project settings, set the **Root Directory** to `backend`.
+3. Vercel will automatically use `backend/vercel.json` and deploy `app.main:app` via `@vercel/python`.
+
