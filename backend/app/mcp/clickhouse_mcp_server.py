@@ -86,10 +86,20 @@ class ClickHouseMCPClient:
                 env=env
             )
 
+            mcp_tool_name = tool_name
+            mcp_arguments = arguments
+            if tool_name == "clickhouse_search_vector_continuity":
+                mcp_tool_name = "run_query"
+                char = arguments.get("character", "Maya Vance")
+                mcp_arguments = {"query": f"SELECT shot_id, scene, character, costume, lighting FROM video_frames WHERE character = '{char}' LIMIT 3"}
+            elif tool_name == "clickhouse_execute_sql":
+                mcp_tool_name = "run_query"
+                mcp_arguments = {"query": arguments.get("sql", "SELECT 1")}
+
             async with stdio_client(server_params) as (read, write):
                 async with ClientSession(read, write) as session:
                     await session.initialize()
-                    res = await session.call_tool(tool_name, arguments)
+                    res = await session.call_tool(mcp_tool_name, mcp_arguments)
                     
                     if getattr(res, "isError", False):
                         err_msg = "".join([c.text for c in getattr(res, "content", []) if hasattr(c, "text")])
