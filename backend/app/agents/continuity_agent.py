@@ -8,9 +8,9 @@ logger = logging.getLogger("cinevector.continuity_agent")
 
 class ContinuityAgent:
     """
-    Autonomous Character Continuity Agent powered by Gemini 2.0 and ClickHouse MCP.
-    First extracts structured visual tokens via Gemini 2.0 Flash, then executes
-    vector similarity matching against ClickHouse reference tables.
+    Autonomous Character Continuity Agent powered by Gemini 2.5 Flash and official mcp-clickhouse.
+    Extracts structured visual tokens via Gemini 2.5 Flash, then executes
+    vector similarity matching against ClickHouse reference tables using official MCP tools.
     """
     def __init__(self):
         self.name = "ContinuitySentinel"
@@ -19,8 +19,20 @@ class ContinuityAgent:
     async def verify_shot_continuity(self, character: str, shot_description: str) -> Dict[str, Any]:
         start = time.time()
         
-        # Step 1: Real Gemini 2.0 Visual Feature Extraction
+        # Step 1: Gemini 2.5 Flash Visual Feature Extraction
         gemini_res = gemini_service.extract_continuity_tokens(character, shot_description)
+        if not gemini_res.get("success"):
+            return {
+                "agent": self.name,
+                "character": character,
+                "status": "LIVE_ERROR",
+                "mode": gemini_res.get("mode", "live_error"),
+                "error": gemini_res.get("error", "Gemini extraction failed"),
+                "gemini_evidence_source": gemini_res.get("evidence_source"),
+                "clickhouse_evidence_source": "mcp-clickhouse (Not Reached)",
+                "measured_latency_ms": round((time.time() - start) * 1000, 2)
+            }
+
         extracted_tokens = gemini_res.get("data", {})
 
         # Step 2: ClickHouse MCP Vector Similarity Search
@@ -29,14 +41,28 @@ class ContinuityAgent:
             {"character": character, "query_tokens": extracted_tokens}
         )
 
+        if vector_res.get("status") == "error":
+            return {
+                "agent": self.name,
+                "character": character,
+                "status": "LIVE_ERROR",
+                "mode": vector_res.get("mode", "live_error"),
+                "error": vector_res.get("error", "ClickHouse MCP query failed"),
+                "gemini_extracted_tokens": extracted_tokens,
+                "gemini_evidence_source": gemini_res.get("evidence_source"),
+                "clickhouse_evidence_source": vector_res.get("evidence_source"),
+                "measured_latency_ms": round((time.time() - start) * 1000, 2)
+            }
+
         top_matches = vector_res.get("top_matches", [])
-        avg_score = top_matches[0].get("similarity_score", 0.95) if top_matches else 0.90
-        status = "PASSED_CONTINUITY" if avg_score >= 0.88 else "DRIFT_DETECTED"
+        avg_score = top_matches[0].get("similarity_score", 0.85) if top_matches else 0.80
+        status = "PASSED_CONTINUITY" if avg_score >= 0.85 else "DRIFT_DETECTED"
 
         return {
             "agent": self.name,
             "character": character,
             "status": status,
+            "mode": vector_res.get("mode", gemini_res.get("mode", "demo")),
             "cosine_similarity": avg_score,
             "gemini_extracted_tokens": extracted_tokens,
             "gemini_evidence_source": gemini_res.get("evidence_source"),

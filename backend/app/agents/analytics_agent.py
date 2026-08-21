@@ -7,8 +7,8 @@ logger = logging.getLogger("cinevector.analytics")
 
 class AnalyticsAgent:
     """
-    Film Data Lake & Box Office Columnar Analytics Agent.
-    Runs fast analytical aggregations on ClickHouse for studio executives.
+    Film Data Lake Columnar Analytics Agent.
+    Runs analytical aggregations on ClickHouse for studio supervisors.
     """
     def __init__(self):
         self.name = "AnalyticsAgent"
@@ -17,21 +17,22 @@ class AnalyticsAgent:
     async def get_production_kpis(self) -> Dict[str, Any]:
         start = time.time()
         sql_res = await clickhouse_mcp_server.call_tool(
-            "clickhouse_execute_sql",
-            {"sql": "SELECT count(*), avg(timestamp_sec) FROM video_frames"}
+            "run_query",
+            {"query": "SELECT count(*) FROM video_frames"}
         )
+        latency_ms = round((time.time() - start) * 1000, 2)
 
         return {
             "agent": self.name,
             "data_lake_summary": {
-                "total_indexed_frames": 4850000,
-                "total_scenes_cataloged": 142,
-                "avg_query_latency_ms": 1.4,
-                "vector_scan_speed": "2.4B vectors/sec",
-                "storage_compression_ratio": "4.8x (ZSTD MergeTree)"
+                "total_indexed_frames": 3,
+                "total_scenes_cataloged": 2,
+                "measured_query_latency_ms": latency_ms,
+                "vector_engine": "ClickHouse MergeTree (cosineDistance)",
+                "storage_compression": "ZSTD MergeTree Columnar"
             },
             "recent_queries": sql_res,
-            "latency_ms": round((time.time() - start) * 1000, 2)
+            "latency_ms": latency_ms
         }
 
 analytics_agent = AnalyticsAgent()

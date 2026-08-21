@@ -1,6 +1,6 @@
 import os
 import logging
-from fastapi import FastAPI
+from fastapi import FastAPI, Response
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
@@ -13,7 +13,7 @@ logger = logging.getLogger("cinevector.main")
 app = FastAPI(
     title="CineVector Vault API",
     version="1.0.0",
-    description="High-Speed Columnar Video Intelligence & Vector Continuity Media Lake powered by ClickHouse MCP and Gemini 2.0."
+    description="Columnar Video Intelligence & Vector Continuity Media Lake powered by official mcp-clickhouse and Gemini 2.5 Flash."
 )
 
 app.add_middleware(
@@ -30,6 +30,10 @@ app.include_router(vault_router, prefix=settings.API_PREFIX)
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
+
+@app.get("/favicon.ico", include_in_schema=False)
+async def favicon():
+    return Response(status_code=204)
 
 @app.get("/")
 @app.get("/ui")

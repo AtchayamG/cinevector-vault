@@ -1,12 +1,12 @@
 <div align="center">
 
 # 🗄️ CineVector Vault
-### High-Speed Columnar Video Intelligence & Vector Continuity Media Lake
+### Columnar Video Intelligence & Vector Continuity Media Lake
 **Built for the ClickHouse Track — Google Cloud "Agentic Cinema: The Blockbuster Hackathon"**
 
 [![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
-[![ClickHouse MCP](https://img.shields.io/badge/ClickHouse-MCP%20Server-FFCC01?logo=clickhouse&logoColor=black)](https://clickhouse.com)
-[![Gemini](https://img.shields.io/badge/Google%20Gemini-2.0%20Flash-4285F4?logo=google&logoColor=white)](https://cloud.google.com/vertex-ai)
+[![ClickHouse MCP](https://img.shields.io/badge/ClickHouse-mcp--clickhouse-FFCC01?logo=clickhouse&logoColor=black)](https://clickhouse.com)
+[![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-4285F4?logo=google&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 
 </div>
@@ -14,38 +14,61 @@
 ---
 
 ## 🌟 Overview
-**CineVector Vault** is an enterprise-grade multimodal media data lake and vector continuity search engine powered by **ClickHouse Cloud MCP** and **Gemini 2.0**. It solves the biggest bottlenecks in AI filmmaking: character drift across video takes, high-volume video token cataloging, and sub-millisecond similarity scans across millions of video frames.
+**CineVector Vault** is a multimodal media data lake and vector continuity search engine powered by official **ClickHouse Cloud MCP (`mcp-clickhouse`)** and **Gemini 2.5 Flash**. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
 
 ---
 
 ## 🚀 Key Features
 
-1. **⚡ Sub-Millisecond Vector Continuity Search**:
-   - Executes `cosineDistance` vector queries over 768-dim video frame embeddings in under **1.4ms**.
-   - Guarantees character facial structure, wardrobe, and lighting continuity between AI-generated shots.
+1. **⚡ Columnar Vector Continuity Search**:
+   - Executes `cosineDistance` vector queries over 768-dim video frame embeddings using ClickHouse's vector distance functions.
+   - Evaluates character wardrobe and lighting consistency between AI-generated shots.
 
-2. **🗄️ Real-Time MergeTree Columnar Schemas**:
-   - `video_frames`: Ingests millions of raw takes and timestamps with high compression.
-   - `script_dialogues`: Semantic full-text search across multi-character dialogue transcripts.
+2. **🗄️ MergeTree Columnar Schemas**:
+   - `video_frames`: Cataloged reference takes, timestamps, and embeddings.
+   - `script_dialogues`: Semantic full-text search across dialogue transcripts.
 
-3. **🔌 ClickHouse MCP Server (`mcp-clickhouse`)**:
-   - Direct runtime MCP integration exposing `clickhouse_execute_sql`, `clickhouse_search_vector_continuity`, and `clickhouse_index_frame_vector`.
+3. **🔌 Official `mcp-clickhouse` Integration**:
+   - Direct runtime MCP integration using the official Python MCP SDK and `mcp-clickhouse` server package.
+   - Leverages official MCP tools: `run_query`, `list_databases`, `list_tables`.
 
-4. **🤖 Specialized Gemini 2.0 Agent Crew**:
-   - **ContinuitySentinel Agent**: Automatically flags visual drift in real time.
-   - **VideoIndexer Agent**: Ingests video rushes at 24,000 FPS throughput.
-   - **Analytics Agent**: Delivers live studio KPI reports and SQL performance metrics.
+4. **🤖 Specialized Gemini 2.5 Agent Crew**:
+   - **ContinuitySentinel Agent**: Extracts visual attributes via Gemini 2.5 Flash and verifies vector match consistency.
+   - **VideoIndexer Agent**: Indexes video rush takes into ClickHouse tables.
+   - **Analytics Agent**: Delivers studio KPI reports and SQL performance metrics.
 
 ---
 
-## ⚡ Quickstart
+## ⚙️ Configuration & Connection Settings
+
+### ClickHouse Database Ports
+- **Port 8123**: Standard unencrypted HTTP protocol port.
+- **Port 8443**: Standard HTTPS/TLS secure port (default for ClickHouse Cloud).
+
+### Official MCP Transport Settings
+- The application uses a managed **stdio session** via the official Python `mcp` SDK to launch the installed `mcp-clickhouse` server process.
+- Environment variables (`CLICKHOUSE_HOST`, `CLICKHOUSE_PORT`, `CLICKHOUSE_USER`, `CLICKHOUSE_PASSWORD`, `CLICKHOUSE_SECURE`) are passed directly into the stdio session environment.
+
+---
+
+## ⚡ Clean Clone Quickstart
 
 ```bash
+# 1. Clone repository & navigate to backend
 cd backend
+
+# 2. Install dependencies (includes mcp and mcp-clickhouse)
 pip install -r requirements.txt
+
+# 3. Configure environment
+cp ../.env.example .env
+# Edit .env to set RUNTIME_MODE=demo (local fixture) or RUNTIME_MODE=live (ClickHouse Cloud + Gemini credentials)
+
+# 4. Start backend server
 python run_backend.py
 ```
-*API docs at `http://localhost:8001/docs`.*
+* Interactive Studio Web UI available at: `http://localhost:8001/`
+* OpenAPI Swagger docs available at: `http://localhost:8001/docs`
 
 ---
 
@@ -53,7 +76,7 @@ python run_backend.py
 
 ```bash
 cd backend
-pytest tests/ -v
+python -m pytest -q
 ```
 
 ---
