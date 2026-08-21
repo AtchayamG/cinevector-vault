@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineVector Vault — ClickHouse MCP & Gemini 2.0</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Space Grotesk', sans-serif; background-color: #0b0f19; color: #f1f5f9; }
+    .mono { font-family: 'JetBrains Mono', monospace; }
+    .glass { background: rgba(18, 24, 38, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 204, 0, 0.18); }
+    .glow-yellow { box-shadow: 0 0 25px rgba(255, 204, 1, 0.2); }
+  </style>
+</head>
+<body class="min-h-screen p-4 sm:p-8 flex flex-col justify-between">
+  <div class="max-w-6xl w-full mx-auto space-y-6">
+    <!-- Header -->
+    <header class="glass p-6 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="space-y-1">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-xl bg-yellow-400 text-black flex items-center justify-center font-bold text-xl">🗄️</div>
+          <h1 class="text-2xl font-bold tracking-tight text-white">CineVector Vault</h1>
+          <span class="mono text-xs px-2.5 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-400 font-semibold">ClickHouse Track</span>
+        </div>
+        <p class="text-xs text-slate-400">High-Speed Video Intelligence, Character Vector Continuity & Columnar Media Lake</p>
+      </div>
+      <div class="flex items-center gap-3 text-xs mono">
+        <span id="mode-badge" class="px-3 py-1.5 rounded-lg bg-amber-500/10 border border-amber-500/30 text-amber-300">MODE: DEMO FIXTURES</span>
+        <a href="/docs" class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors">API Docs (Swagger)</a>
+      </div>
+    </header>
+
+    <!-- Main 2-Column Grid -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      <!-- Left: Shot Inspector & Gemini Extractor -->
+      <div class="glass p-6 rounded-2xl space-y-5">
+        <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+          <h2 class="text-sm font-bold uppercase tracking-wider text-yellow-400">1. Scene Shot Ingest & Gemini 2.0 Extractor</h2>
+          <span class="mono text-[11px] text-slate-400">Gemini 2.0 Flash</span>
+        </div>
+
+        <div class="space-y-3">
+          <div>
+            <label class="text-xs mono text-slate-300 block mb-1">Select Character:</label>
+            <select id="char-select" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-xs mono text-white focus:outline-none focus:border-yellow-400">
+              <option value="Maya Vance">Maya Vance (Cyber Detective)</option>
+              <option value="Dr. Alistair Chen">Dr. Alistair Chen (Chief Architect)</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="text-xs mono text-slate-300 block mb-1">New Shot Description / Visual Prompt:</label>
+            <textarea id="shot-desc" rows="3" class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-xs mono text-white focus:outline-none focus:border-yellow-400">EXT. NEO-TOKYO STREET - NIGHT. Maya Vance stands under rain in a charcoal cyber trenchcoat with high matte collar, analyzing cyan holographic telemetry.</textarea>
+          </div>
+
+          <button id="run-btn" onclick="runContinuityCheck()" class="w-full py-2.5 rounded-xl bg-yellow-400 hover:bg-yellow-300 text-black font-bold text-xs mono tracking-wider transition-all glow-yellow">
+            ⚡ Run Gemini 2.0 Extract + ClickHouse MCP Vector Match
+          </button>
+        </div>
+
+        <!-- Gemini Output Box -->
+        <div id="gemini-box" class="hidden bg-slate-950 p-4 rounded-xl border border-slate-800 text-xs mono space-y-2">
+          <div class="flex items-center justify-between text-slate-400 text-[11px] border-b border-slate-800 pb-1">
+            <span class="text-cyan-400 font-semibold">Gemini 2.0 Visual Attribute Tokens:</span>
+            <span id="gemini-src" class="text-slate-500"></span>
+          </div>
+          <pre id="gemini-tokens" class="text-slate-300 text-[11px] overflow-x-auto whitespace-pre-wrap"></pre>
+        </div>
+      </div>
+
+      <!-- Right: ClickHouse MCP Vector Match Result -->
+      <div class="glass p-6 rounded-2xl space-y-5">
+        <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+          <h2 class="text-sm font-bold uppercase tracking-wider text-yellow-400">2. ClickHouse MCP Vector Matcher</h2>
+          <span class="mono text-[11px] text-slate-400">mcp-clickhouse</span>
+        </div>
+
+        <div id="result-box" class="space-y-4">
+          <div class="p-4 rounded-xl bg-slate-900/60 border border-slate-800 text-center text-slate-400 text-xs mono">
+            Click the run button to execute vector similarity comparison against ClickHouse reference tables.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom: Interactive ClickHouse SQL Explorer -->
+    <div class="glass p-6 rounded-2xl space-y-4">
+      <div class="border-b border-slate-800 pb-3 flex items-center justify-between">
+        <h2 class="text-sm font-bold uppercase tracking-wider text-yellow-400">3. ClickHouse MergeTree SQL Console</h2>
+        <span class="mono text-[11px] text-slate-400">Columnar Engine (Demo Dataset)</span>
+      </div>
+
+      <div class="flex gap-2">
+        <input type="text" id="sql-input" value="SELECT shot_id, scene_number, character, costume_match, status FROM video_frames" class="flex-1 bg-slate-900 border border-slate-700 rounded-xl px-3.5 py-2 text-xs mono text-white focus:outline-none focus:border-yellow-400">
+        <button onclick="runSQL()" class="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-yellow-300 font-bold text-xs mono transition-colors">
+          Execute SQL
+        </button>
+      </div>
+
+      <div id="sql-table" class="bg-slate-950 rounded-xl border border-slate-800 overflow-x-auto p-3 text-xs mono text-slate-300">
+        <table class="w-full text-left">
+          <thead>
+            <tr class="border-b border-slate-800 text-slate-400 text-[11px]">
+              <th class="p-2">Shot ID</th>
+              <th class="p-2">Scene #</th>
+              <th class="p-2">Character</th>
+              <th class="p-2">Costume Match</th>
+              <th class="p-2">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60">
+            <tr>
+              <td class="p-2 text-yellow-400">TAKE-101_REF</td>
+              <td class="p-2">1</td>
+              <td class="p-2 text-white">Maya Vance</td>
+              <td class="p-2">Charcoal cyber trenchcoat</td>
+              <td class="p-2 text-emerald-400">VERIFIED_CONTINUITY</td>
+            </tr>
+            <tr>
+              <td class="p-2 text-yellow-400">TAKE-102_REF</td>
+              <td class="p-2">1</td>
+              <td class="p-2 text-white">Maya Vance</td>
+              <td class="p-2">Charcoal cyber trenchcoat</td>
+              <td class="p-2 text-emerald-400">VERIFIED_CONTINUITY</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer class="text-center py-6 text-xs mono text-slate-500">
+    CineVector Vault • Google Cloud Agentic Cinema Hackathon • ClickHouse Partner Track
+  </footer>
+
+  <script>
+    async function runContinuityCheck() {
+      const btn = document.getElementById('run-btn');
+      btn.innerText = 'Scanning ClickHouse Vector Database...';
+      btn.disabled = true;
+
+      const char = document.getElementById('char-select').value;
+      const desc = document.getElementById('shot-desc').value;
+
+      try {
+        const res = await fetch('/api/v1/vault/search/continuity', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ character: char, min_similarity: 0.90 })
+        });
+        const data = await res.json();
+
+        // Show Gemini Tokens
+        document.getElementById('gemini-box').classList.remove('hidden');
+        document.getElementById('gemini-src').innerText = data.gemini_evidence_source || 'Gemini 2.0';
+        document.getElementById('gemini-tokens').innerText = JSON.stringify(data.gemini_extracted_tokens, null, 2);
+
+        // Show ClickHouse Match Result
+        const resBox = document.getElementById('result-box');
+        resBox.innerHTML = `
+          <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs mono font-bold ${data.status === 'PASSED_CONTINUITY' ? 'text-emerald-400' : 'text-rose-400'}">
+                ● ${data.status}
+              </span>
+              <span class="text-xs mono text-yellow-400 font-bold">Cosine Similarity: ${(data.cosine_similarity * 100).toFixed(1)}%</span>
+            </div>
+            <div class="text-[11px] mono text-slate-400">
+              <span>Measured Latency: </span><span class="text-white font-bold">${data.measured_latency_ms} ms</span>
+              <span class="block text-slate-500 mt-0.5">${data.clickhouse_evidence_source}</span>
+            </div>
+            <div class="space-y-2 pt-2 border-t border-slate-800">
+              <span class="text-[11px] mono text-slate-300 font-semibold block">ClickHouse Matched Reference Shots:</span>
+              ${data.reference_matches.map(m => `
+                <div class="p-2.5 rounded-lg bg-slate-950 border border-slate-800 flex items-center justify-between text-xs mono">
+                  <div>
+                    <span class="font-bold text-white">${m.shot_id} (Scene ${m.scene})</span>
+                    <span class="block text-[10px] text-slate-400">${m.reference_costume}</span>
+                  </div>
+                  <span class="text-emerald-400 font-bold">${(m.similarity_score * 100).toFixed(1)}%</span>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } catch (err) {
+        console.error(err);
+      } finally {
+        btn.innerText = '⚡ Run Gemini 2.0 Extract + ClickHouse MCP Vector Match';
+        btn.disabled = false;
+      }
+    }
+
+    async function runSQL() {
+      const sql = document.getElementById('sql-input').value;
+      try {
+        const res = await fetch('/api/v1/vault/sql', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ sql })
+        });
+        const data = await res.json();
+        const table = document.getElementById('sql-table');
+        if (data.columns && data.rows) {
+          table.innerHTML = `
+            <table class="w-full text-left">
+              <thead>
+                <tr class="border-b border-slate-800 text-slate-400 text-[11px]">
+                  ${data.columns.map(c => `<th class="p-2">${c}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-800/60">
+                ${data.rows.map(r => `
+                  <tr>${r.map(cell => `<td class="p-2">${cell}</td>`).join('')}</tr>
+                `).join('')}
+              </tbody>
+            </table>
+          `;
+        }
+      } catch(e) { console.error(e); }
+    }
+  </script>
+</body>
+</html>
