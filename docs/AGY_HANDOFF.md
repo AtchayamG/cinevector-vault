@@ -1,7 +1,7 @@
 # 🤖 AntiGravity Handoff Document: Track 2 (ClickHouse Track)
 
 ## Result
-CineVector Vault has been updated to be fully truthful and submission-ready for the ClickHouse track. The previous mock wrapper was replaced with an official MCP client path using the official Python `mcp` SDK and installed `mcp-clickhouse` server package via a managed stdio session. All unmeasured scale/throughput claims (e.g. 24,000 FPS, sub-millisecond, petabytes) were removed from code, UI, README, handoffs, Devpost draft, and video script. All Gemini model labels were updated to stable `gemini-2.5-flash`. Tailwind CDN was replaced with local production-safe CSS, and an embedded SVG favicon was added to prevent console 404s.
+CineVector Vault has been updated to be fully truthful for the ClickHouse track. The previous mock wrapper was replaced with an official MCP client path using the official Python `mcp` SDK and installed `mcp-clickhouse` server package via a managed stdio session. All unmeasured scale/throughput claims (e.g. 24,000 FPS, sub-millisecond, petabytes) were removed from code, UI, README, handoffs, Devpost draft, and video script. All Gemini model labels were updated to stable `gemini-2.5-flash`. Tailwind CDN was replaced with local CSS, and an embedded SVG favicon was added to prevent console 404s.
 
 ## Files Changed
 - `backend/requirements.txt`: Added `mcp>=1.2.0` and `mcp-clickhouse>=0.4.0`.

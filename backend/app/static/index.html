@@ -169,7 +169,7 @@
 
         <div id="result-box">
           <div class="output-box mono" style="text-align:center; color:#94a3b8;">
-            Click the run button to execute vector similarity comparison against ClickHouse reference tables via official mcp-clickhouse server.
+            Click the run button to execute against deterministic local reference fixtures and a simulated SQL and result contract.
           </div>
         </div>
       </div>
@@ -226,6 +226,33 @@
   </footer>
 
   <script>
+    async function checkMode() {
+      try {
+        const res = await fetch('/api/v1/health');
+        const data = await res.json();
+        const mode = data.mode ? data.mode.toLowerCase() : 'demo';
+        const resBox = document.getElementById('result-box');
+        
+        if (mode === 'live') {
+          resBox.innerHTML = `
+            <div class="output-box mono" style="text-align:center; color:#94a3b8;">
+              Click the run button to execute vector similarity comparison against ClickHouse reference tables via official mcp-clickhouse server.
+            </div>
+          `;
+        } else {
+          resBox.innerHTML = `
+            <div class="output-box mono" style="text-align:center; color:#94a3b8;">
+              Click the run button to execute against deterministic local reference fixtures and a simulated SQL and result contract.
+            </div>
+          `;
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', checkMode);
+
     async function runContinuityCheck() {
       const btn = document.getElementById('run-btn');
       btn.innerText = 'Scanning ClickHouse Vector Database...';

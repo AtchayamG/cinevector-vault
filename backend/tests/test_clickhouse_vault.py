@@ -82,6 +82,7 @@ def test_ui_workflow_endpoints():
     ui_res = client.get("/")
     assert ui_res.status_code == 200
     assert "CineVector Vault" in ui_res.text
+    assert "deterministic local reference fixtures and a simulated SQL and result contract" in ui_res.text
     
     # POST Continuity Workflow Endpoint
     cont_res = client.post(
