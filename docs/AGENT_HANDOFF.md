@@ -18,7 +18,7 @@ Using ClickHouse's MergeTree engine and `cosineDistance` vector scans over 768-d
 - **Project Title:** `CineVector Vault: Columnar Video Intelligence & Vector Continuity Media Lake`
 - **Elevator Pitch:** `A multimodal media data lake powered by official ClickHouse MCP (mcp-clickhouse) and Gemini 2.5 Flash that catalog video frames and dialogue transcripts, enabling columnar vector similarity search to detect and help reduce AI character drift and power real-time film studio analytics.`
 - **Partner Track:** `ClickHouse Track`
-- **License:** `Apache 2.0` (Included at root)
+- **License:** `MIT` (Included at root)
 
 ---
 
@@ -43,7 +43,7 @@ Track2_ClickHouse_CineVector_Vault/
 │   ├── DEVPOST_SUBMISSION.md              # Full Devpost submission details
 │   ├── AGY_HANDOFF.md                     # AntiGravity to Integrator Handoff
 │   └── AGENT_HANDOFF.md                   # This handoff guide
-├── LICENSE                                # Apache 2.0
+├── LICENSE                                # MIT
 └── README.md                              # Main documentation
 ```
 

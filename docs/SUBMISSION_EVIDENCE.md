@@ -9,6 +9,6 @@
 | **Judge-Friendly Web UI** | `backend/app/static/index.html`<br/>`backend/app/main.py` | **PASS** | Open `http://localhost:8001/` | Interactive web studio with Shot Ingestion, Gemini Extraction Inspector, ClickHouse Vector Matcher, and SQL Console. Uses local CSS (no Tailwind CDN) and embedded favicon. |
 | **Explicit Live / Demo Mode** | `backend/app/config.py`<br/>`backend/app/services/clickhouse_service.py` | **PASS** | `pytest tests/test_clickhouse_vault.py` | Clear `MODE: DEMO` badge and honest evidence source tags. In live mode, missing configuration or query failure returns `live_unavailable`/`live_error` without silent demo fallback. |
 | **Small Reproducible Seed Dataset** | `backend/app/services/clickhouse_service.py` | **PASS** | File inspect | 3 reference shots with 768-dim embeddings across Maya Vance and Dr. Chen. Demo matching uses dynamic input-dependent vector scoring. |
-| **Open Source License** | `LICENSE` | **PASS** | File inspect | Apache 2.0 Open Source License. |
+| **Open Source License** | `LICENSE` | **PASS** | File inspect | Standard MIT Open Source License. |
 | **Environment Template** | `.env.example` | **PASS** | File inspect | Parameter names, ClickHouse HTTP ports 8123/8443, and stdio MCP transport settings without secrets. |
 | **Health / Readiness Endpoint** | `backend/app/main.py` (`/api/v1/health`) | **PASS** | `GET /api/v1/health` | Exposes provider configuration state and model details. |

@@ -9,6 +9,11 @@ A multimodal media data lake powered by official ClickHouse MCP (`mcp-clickhouse
 ## Selected Track
 **ClickHouse Track** ($7,500 1st Place)
 
+## Judge Links
+- **Live Application:** https://cinevector-vault.vercel.app/
+- **Public Repository:** https://github.com/AtchayamG/cinevector-vault
+- **Runtime Note:** The hosted evaluator is explicitly labeled demo mode; dated official live ClickHouse MCP and Gemini smoke evidence is included in the repository.
+
 ## What It Does
 1. **Columnar Vector Search**: Uses ClickHouse's vector distance functions to compute cosine similarity across 768-dim frame embeddings.
 2. **AI Character Continuity**: Evaluates character generated across separate shots to maintain consistent faces, wardrobe, and lighting.

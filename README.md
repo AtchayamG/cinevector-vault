@@ -4,7 +4,7 @@
 ### Columnar Video Intelligence & Vector Continuity Media Lake
 **Built for the ClickHouse Track — Google Cloud "Agentic Cinema: The Blockbuster Hackathon"**
 
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![ClickHouse MCP](https://img.shields.io/badge/ClickHouse-mcp--clickhouse-FFCC01?logo=clickhouse&logoColor=black)](https://clickhouse.com)
 [![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-4285F4?logo=google&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
@@ -82,11 +82,14 @@ python -m pytest -q
 ---
 
 ## 📄 License
-Licensed under the **[Apache License 2.0](LICENSE)**.
+Licensed under the **[MIT License](LICENSE)**.
 
 ## 🚀 Public Deployment (Vercel)
 
-A public FastAPI deployment can be easily hosted on Vercel using the provided configuration.
+**Live judge demo:** https://cinevector-vault.vercel.app/  
+**Public source:** https://github.com/AtchayamG/cinevector-vault
+
+A public FastAPI deployment is hosted on Vercel using the provided configuration.
 The public deployment defaults to honest demo fixtures (RUNTIME_MODE=demo).
 
 1. Import your project into Vercel.
