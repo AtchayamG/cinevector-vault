@@ -12,6 +12,7 @@ A multimodal media data lake powered by official ClickHouse MCP (`mcp-clickhouse
 ## Judge Links
 - **Live Application:** https://cinevector-vault.vercel.app/
 - **Public Repository:** https://github.com/AtchayamG/cinevector-vault
+- **Demo Video:** https://youtu.be/jOU1YCBdTnA
 - **Runtime Note:** The hosted evaluator is explicitly labeled demo mode; dated official live ClickHouse MCP and Gemini smoke evidence is included in the repository.
 
 ## What It Does
