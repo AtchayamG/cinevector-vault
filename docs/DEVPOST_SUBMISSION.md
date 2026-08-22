@@ -4,7 +4,7 @@
 **CineVector Vault: Columnar Video Intelligence & Vector Continuity Media Lake**
 
 ## Elevator Pitch
-A multimodal media data lake powered by official ClickHouse MCP (`mcp-clickhouse`) and Gemini 2.5 Flash that catalog video frames and dialogue transcripts, enabling columnar vector similarity search to detect and help reduce AI character drift and power real-time film studio analytics.
+A multimodal media data lake powered by official ClickHouse MCP (`mcp-clickhouse`) and Gemini 3.7 Flash that catalog video frames and dialogue transcripts, enabling columnar vector similarity search to detect and help reduce AI character drift and power real-time film studio analytics.
 
 ## Selected Track
 **ClickHouse Track** ($7,500 1st Place)

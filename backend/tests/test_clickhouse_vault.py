@@ -74,7 +74,7 @@ def test_health_endpoint_honest_config():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "healthy"
-    assert data["providers"]["google_gemini"]["model"] == "gemini-2.5-flash"
+    assert data["providers"]["google_gemini"]["model"] == "gemini-3.7-flash"
     assert data["providers"]["clickhouse_mcp"]["server"] == "mcp-clickhouse"
 
 def test_ui_workflow_endpoints():

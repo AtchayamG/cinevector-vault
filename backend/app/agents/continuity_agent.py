@@ -8,8 +8,8 @@ logger = logging.getLogger("cinevector.continuity_agent")
 
 class ContinuityAgent:
     """
-    Autonomous Character Continuity Agent powered by Gemini 2.5 Flash and official mcp-clickhouse.
-    Extracts structured visual tokens via Gemini 2.5 Flash, then executes
+    Autonomous Character Continuity Agent powered by Gemini 3.7 Flash and official mcp-clickhouse.
+    Extracts structured visual tokens via Gemini 3.7 Flash, then executes
     vector similarity matching against ClickHouse reference tables using official MCP tools.
     """
     def __init__(self):
@@ -19,7 +19,7 @@ class ContinuityAgent:
     async def verify_shot_continuity(self, character: str, shot_description: str) -> Dict[str, Any]:
         start = time.time()
         
-        # Step 1: Gemini 2.5 Flash Visual Feature Extraction
+        # Step 1: Gemini 3.7 Flash Visual Feature Extraction
         gemini_res = gemini_service.extract_continuity_tokens(character, shot_description)
         if not gemini_res.get("success"):
             return {

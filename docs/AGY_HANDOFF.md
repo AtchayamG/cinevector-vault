@@ -1,5 +1,7 @@
 # 🤖 AntiGravity Handoff Document: Track 2 (ClickHouse Track)
 
+> Historical note: this handoff records the earlier Gemini 2.5 hardening pass. The current implementation and judge-facing materials use `gemini-3.7-flash`; see `docs/AGENT_HANDOFF.md` and `docs/SUBMISSION_EVIDENCE.md` for current state.
+
 ## Result
 CineVector Vault has been updated to be fully truthful for the ClickHouse track. The default public evaluator uses deterministic local fixtures. Official `mcp-clickhouse` and Gemini 2.5 Flash are implemented as live integration paths. Official mcp-clickhouse was proven against self-hosted ClickHouse 25.8.31.9, and the independent Gemini service smoke passed. The previous mock wrapper was replaced with an official MCP client path using the official Python `mcp` SDK and installed `mcp-clickhouse` server package via a managed stdio session. All unmeasured scale/throughput claims (e.g. 24,000 FPS, sub-millisecond, petabytes) were removed from code, UI, README, handoffs, Devpost draft, and video script. All Gemini model labels were updated to stable `gemini-2.5-flash`. Tailwind CDN was replaced with local CSS, and an embedded SVG favicon was added to prevent console 404s.
 

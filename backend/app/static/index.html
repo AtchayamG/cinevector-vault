@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CineVector Vault — ClickHouse MCP & Gemini 2.5 Flash</title>
+  <title>CineVector Vault — ClickHouse MCP & Gemini 3.7 Flash</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🗄️</text></svg>">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -244,9 +244,9 @@
         div.style.color = '#94a3b8';
         if (currentMode === 'live') {
           div.textContent = 'Click the run button to execute vector similarity comparison against ClickHouse reference tables via official mcp-clickhouse server.';
-          document.getElementById('heading-extractor').textContent = '1. Scene Shot Ingest & Gemini 2.5 Extractor';
-          document.getElementById('sub-extractor').textContent = 'Gemini 2.5 Flash';
-          document.getElementById('run-btn').innerText = '⚡ Run Gemini 2.5 Extract + ClickHouse MCP Vector Match';
+          document.getElementById('heading-extractor').textContent = '1. Scene Shot Ingest & Gemini 3.7 Extractor';
+          document.getElementById('sub-extractor').textContent = 'Gemini 3.7 Flash';
+          document.getElementById('run-btn').innerText = '⚡ Run Gemini 3.7 Extract + ClickHouse MCP Vector Match';
           document.getElementById('heading-matcher').textContent = '2. ClickHouse MCP Vector Matcher';
           document.getElementById('sub-matcher').textContent = 'mcp-clickhouse';
           document.getElementById('heading-sql').textContent = '3. ClickHouse MergeTree SQL Console';
@@ -260,7 +260,7 @@
               modeBadge.style.borderColor = 'rgba(16, 185, 129, 0.3)';
               modeBadge.style.color = '#34d399';
           }
-          document.getElementById('gemini-label').textContent = 'Gemini 2.5 Visual Attribute Tokens:';
+          document.getElementById('gemini-label').textContent = 'Gemini 3.7 Visual Attribute Tokens:';
         } else {
           div.textContent = 'Click the run button to execute against deterministic local reference fixtures and a simulated SQL and result contract.';
         }
@@ -409,7 +409,7 @@
         console.error(err);
       } finally {
         if (currentMode === 'live') {
-          btn.innerText = '⚡ Run Gemini 2.5 Extract + ClickHouse MCP Vector Match';
+          btn.innerText = '⚡ Run Gemini 3.7 Extract + ClickHouse MCP Vector Match';
         } else {
           btn.innerText = '⚡ Run Local Deterministic Continuity Fixtures';
         }

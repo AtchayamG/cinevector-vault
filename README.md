@@ -6,7 +6,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![ClickHouse MCP](https://img.shields.io/badge/ClickHouse-mcp--clickhouse-FFCC01?logo=clickhouse&logoColor=black)](https://clickhouse.com)
-[![Gemini](https://img.shields.io/badge/Google%20Gemini-2.5%20Flash-4285F4?logo=google&logoColor=white)](https://cloud.google.com/vertex-ai)
+[![Gemini](https://img.shields.io/badge/Google%20Gemini-3.7%20Flash-4285F4?logo=google&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 
 </div>
@@ -14,7 +14,7 @@
 ---
 
 ## 🌟 Overview
-**CineVector Vault** is a multimodal media data lake and vector continuity search engine. The default public evaluator uses deterministic local fixtures. Official **mcp-clickhouse** connected to a live ClickHouse cluster and **Gemini 2.5 Flash** are implemented as live integration paths. Official mcp-clickhouse was proven against managed ClickHouse Cloud 26.2.1.558 and, independently, a self-hosted ClickHouse 25.8.31.9 cluster; the Gemini service smoke also passed. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
+**CineVector Vault** is a multimodal media data lake and vector continuity search engine. The default public evaluator uses deterministic local fixtures. Official **mcp-clickhouse** connected to a live ClickHouse cluster and **Gemini 3.7 Flash** are implemented as live integration paths. Official mcp-clickhouse was proven against managed ClickHouse Cloud 26.2.1.558 and, independently, a self-hosted ClickHouse 25.8.31.9 cluster; the Gemini service smoke also passed. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
 
 ---
 
@@ -32,8 +32,8 @@
    - Direct runtime MCP integration using the official Python MCP SDK and `mcp-clickhouse` server package.
    - Leverages official MCP tools: `run_query`, `list_databases`, `list_tables`.
 
-4. **🤖 Specialized Gemini 2.5 Agent Crew**:
-   - **ContinuitySentinel Agent**: Extracts visual attributes via Gemini 2.5 Flash and verifies vector match consistency.
+4. **🤖 Specialized Gemini 3.7 Agent Crew**:
+   - **ContinuitySentinel Agent**: Extracts visual attributes via Gemini 3.7 Flash and verifies vector match consistency.
    - **VideoIndexer Agent**: Indexes video rush takes into ClickHouse tables.
    - **Analytics Agent**: Delivers studio KPI reports and SQL performance metrics.
 

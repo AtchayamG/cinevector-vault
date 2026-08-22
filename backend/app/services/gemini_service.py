@@ -9,7 +9,7 @@ logger = logging.getLogger("cinevector.gemini")
 
 class GeminiService:
     """
-    Google GenAI SDK & Gemini 2.5 Flash Integration Service for CineVector Vault.
+    Google GenAI SDK & Gemini 3.7 Flash Integration Service for CineVector Vault.
     Analyzes scene visual prompts and extracts structured visual continuity tokens
     (costume items, lighting palettes, facial features, props) for vector embedding and ClickHouse matching.
     """
@@ -39,7 +39,7 @@ class GeminiService:
 
     def extract_continuity_tokens(self, character: str, shot_description: str) -> Dict[str, Any]:
         """
-        Calls Gemini 2.5 Flash to extract structured visual continuity attributes.
+        Calls Gemini 3.7 Flash to extract structured visual continuity attributes.
         In live mode, returns live_error / live_unavailable on failure without falling back to demo.
         In demo mode, derives dynamic tokens from input description.
         """

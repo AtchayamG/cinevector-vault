@@ -13,7 +13,7 @@ logger = logging.getLogger("cinevector.main")
 app = FastAPI(
     title="CineVector Vault API",
     version="1.0.0",
-    description="Columnar Video Intelligence & Vector Continuity Media Lake powered by official mcp-clickhouse and Gemini 2.5 Flash."
+    description="Columnar Video Intelligence & Vector Continuity Media Lake powered by official mcp-clickhouse and Gemini 3.7 Flash."
 )
 
 app.add_middleware(

@@ -8,7 +8,7 @@
 ---
 
 ## 1. Executive Summary & Purpose
-**CineVector Vault** is a multimodal video data lake and vector continuity engine powered by official **ClickHouse MCP (`mcp-clickhouse`)** and **Gemini 2.5 Flash**. It helps detect and reduce character facial, wardrobe, and lighting drift across consecutive shots.
+**CineVector Vault** is a multimodal video data lake and vector continuity engine powered by official **ClickHouse MCP (`mcp-clickhouse`)** and **Gemini 3.7 Flash**. It helps detect and reduce character facial, wardrobe, and lighting drift across consecutive shots.
 
 Using ClickHouse's MergeTree engine and `cosineDistance` vector scans over 768-dim embeddings, autonomous agents catalog video takes and maintain character consistency.
 
@@ -16,7 +16,7 @@ Using ClickHouse's MergeTree engine and `cosineDistance` vector scans over 768-d
 
 ## 2. Devpost Submission Fields (Copy-Paste Ready)
 - **Project Title:** `CineVector Vault: Columnar Video Intelligence & Vector Continuity Media Lake`
-- **Elevator Pitch:** `A multimodal media data lake powered by official ClickHouse MCP (mcp-clickhouse) and Gemini 2.5 Flash that catalog video frames and dialogue transcripts, enabling columnar vector similarity search to detect and help reduce AI character drift and power real-time film studio analytics.`
+- **Elevator Pitch:** `A multimodal media data lake powered by official ClickHouse MCP (mcp-clickhouse) and Gemini 3.7 Flash that catalog video frames and dialogue transcripts, enabling columnar vector similarity search to detect and help reduce AI character drift and power real-time film studio analytics.`
 - **Partner Track:** `ClickHouse Track`
 - **License:** `MIT` (Included at root)
 
