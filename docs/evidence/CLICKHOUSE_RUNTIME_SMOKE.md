@@ -2,11 +2,13 @@
 
 **Date:** 2026-08-21
 
-This document provides independent verification of the genuine partner-runtime proof against a disposable self-hosted ClickHouse cluster.
+This document records both the original self-hosted proof and the final managed ClickHouse Cloud verification.
 
 ## Architecture Distinction
-- **Verified Status**: Official `mcp-clickhouse` runtime execution against a self-hosted ClickHouse cluster (Version 25.8.31.9) via HTTP interface is **PASS**.
-- **Optional Status**: ClickHouse Cloud-specific proof is optional and was not performed.
+- **Verified Status**: Official `mcp-clickhouse` runtime execution against ClickHouse Cloud (Version 26.2.1.558) via secure HTTPS is **PASS**.
+- **Earlier Proof**: The same official MCP path also passed against a disposable self-hosted ClickHouse 25.8.31.9 cluster.
+- **Managed Service**: `cinevector-vault`, Mumbai region, created from the hackathon's official ClickHouse credit link.
+- **Visual Evidence**: `clickhouse-cloud-query.jpg` shows the managed SQL console returning the same two-character result from three reference rows.
 
 ## Reproducible Procedure (Secret-Free)
 
@@ -54,6 +56,7 @@ This document provides independent verification of the genuine partner-runtime p
 - **Query Executed:** `SELECT character, count() AS shots FROM video_frames GROUP BY character ORDER BY character`
 - **Project Response Mode:** Live
 - **Evidence Source:** `mcp-clickhouse` Official Live MCP Stdio Session
+- **Final Cluster:** ClickHouse Cloud 26.2.1.558 over secure port 8443
 
 **Output:**
 ```
@@ -61,3 +64,5 @@ character       shots
 Elias Thorn     1
 Maya Vance      2
 ```
+
+![ClickHouse Cloud query proof](clickhouse-cloud-query.jpg)
