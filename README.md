@@ -14,7 +14,7 @@
 ---
 
 ## 🌟 Overview
-**CineVector Vault** is a multimodal media data lake and vector continuity search engine. The default public evaluator uses deterministic local fixtures. Official **mcp-clickhouse** connected to a live ClickHouse cluster and **Gemini 3.7 Flash** are implemented as live integration paths. Official mcp-clickhouse was proven against managed ClickHouse Cloud 26.2.1.558 and, independently, a self-hosted ClickHouse 25.8.31.9 cluster; the Gemini service smoke also passed. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
+**CineVector Vault** is a multimodal media data lake and vector continuity search engine. The default public evaluator uses deterministic local fixtures. Official **mcp-clickhouse** connected to a live ClickHouse cluster and **Gemini 3.7 Flash** are implemented as live integration paths. Official mcp-clickhouse was proven against managed ClickHouse Cloud 26.2.1.558 and, independently, a self-hosted ClickHouse 25.8.31.9 cluster. The current Gemini path targets 3.7 Flash; the separate authenticated Gemini smoke used 2.5 Flash and proves the SDK path, not a 3.7 call. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
 
 ---
 
