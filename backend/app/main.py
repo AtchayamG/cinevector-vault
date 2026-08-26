@@ -44,27 +44,64 @@ async def serve_ui():
     return {
         "service": settings.PROJECT_NAME,
         "track": settings.TRACK,
-        "mode": settings.RUNTIME_MODE,
+        "mode": settings.effective_runtime_mode,
         "status": "healthy",
         "docs": "/docs"
     }
 
 @app.get("/api/v1/health")
 async def health_check():
+    gemini_mode = settings.GEMINI_RUNTIME_MODE
+    partner_mode = settings.PARTNER_RUNTIME_MODE
+    effective_mode = settings.effective_runtime_mode
+
+    gemini_evidence = "Gemini API credentials unconfigured"
+    if settings.GEMINI_API_KEY:
+        gemini_evidence = "Gemini API key configured"
+    elif settings.GOOGLE_CLOUD_PROJECT:
+        gemini_evidence = f"Vertex AI configured (Project: {settings.GOOGLE_CLOUD_PROJECT}, Location: {settings.GOOGLE_CLOUD_LOCATION})"
+    elif os.getenv("K_SERVICE"):
+        gemini_evidence = "Cloud Run ADC runtime environment active"
+    elif os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
+        gemini_evidence = "Application Default Credentials (ADC) file configured"
+
+    clickhouse_configured = settings.is_clickhouse_configured
+    clickhouse_evidence = (
+        f"ClickHouse Cloud configured ({settings.CLICKHOUSE_HOST}:{settings.CLICKHOUSE_PORT})"
+        if clickhouse_configured
+        else "ClickHouse credentials unconfigured (local MergeTree fixture active)"
+    )
+
+    gemini_status = (
+        "LIVE_CONFIGURED"
+        if (gemini_mode == "live" and settings.is_gemini_configured)
+        else ("LIVE_UNCONFIGURED" if gemini_mode == "live" else "DEMO_MODE_ACTIVE")
+    )
+    clickhouse_status = (
+        "LIVE_CONFIGURED"
+        if (partner_mode == "live" and clickhouse_configured)
+        else ("LIVE_UNCONFIGURED" if partner_mode == "live" else "DEMO_MODE_ACTIVE")
+    )
+
     return {
         "status": "healthy",
         "service": settings.PROJECT_NAME,
         "track": settings.TRACK,
-        "runtime_mode": settings.RUNTIME_MODE,
+        "runtime_mode": effective_mode,
         "providers": {
             "google_gemini": {
+                "mode": gemini_mode,
                 "configured": settings.is_gemini_configured,
-                "model": settings.GEMINI_MODEL
+                "model": settings.GEMINI_MODEL,
+                "status": gemini_status,
+                "evidence": gemini_evidence
             },
             "clickhouse_mcp": {
-                "configured": settings.is_clickhouse_configured,
+                "mode": partner_mode,
+                "configured": clickhouse_configured,
                 "server": "mcp-clickhouse",
-                "status": "LIVE_CONFIGURED" if settings.is_clickhouse_configured else "DEMO_MODE_ACTIVE"
+                "status": clickhouse_status,
+                "evidence": clickhouse_evidence
             }
         }
     }

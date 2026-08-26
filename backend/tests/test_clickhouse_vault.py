@@ -187,3 +187,171 @@ def test_demo_labels_on_paint():
 
 def test_vertex_default_location_supports_gemini_37():
     assert settings.GOOGLE_CLOUD_LOCATION == "global"
+
+
+def test_runtime_mode_defaults_and_overrides():
+    orig_rm = settings.RUNTIME_MODE
+    orig_gm = settings.GEMINI_RUNTIME_MODE
+    orig_pm = settings.PARTNER_RUNTIME_MODE
+    try:
+        # Reset overrides to test defaulting
+        settings.GEMINI_RUNTIME_MODE = None
+        settings.PARTNER_RUNTIME_MODE = None
+        settings.RUNTIME_MODE = "demo"
+        
+        assert settings.GEMINI_RUNTIME_MODE == "demo"
+        assert settings.PARTNER_RUNTIME_MODE == "demo"
+        assert settings.effective_runtime_mode == "demo"
+        
+        # When RUNTIME_MODE changes, both default to it
+        settings.RUNTIME_MODE = "live"
+        assert settings.GEMINI_RUNTIME_MODE == "live"
+        assert settings.PARTNER_RUNTIME_MODE == "live"
+        assert settings.effective_runtime_mode == "live"
+        
+        # Independent override: Gemini live, Partner demo -> hybrid
+        settings.RUNTIME_MODE = "demo"
+        settings.GEMINI_RUNTIME_MODE = "live"
+        settings.PARTNER_RUNTIME_MODE = "demo"
+        assert settings.GEMINI_RUNTIME_MODE == "live"
+        assert settings.PARTNER_RUNTIME_MODE == "demo"
+        assert settings.effective_runtime_mode == "hybrid"
+    finally:
+        settings.RUNTIME_MODE = orig_rm
+        settings.GEMINI_RUNTIME_MODE = orig_gm
+        settings.PARTNER_RUNTIME_MODE = orig_pm
+
+
+def test_health_endpoint_truthful_hybrid():
+    orig_rm = settings.RUNTIME_MODE
+    orig_gm = settings.GEMINI_RUNTIME_MODE
+    orig_pm = settings.PARTNER_RUNTIME_MODE
+    try:
+        # Configure hybrid mode: Gemini live, ClickHouse demo
+        settings.GEMINI_RUNTIME_MODE = "live"
+        settings.PARTNER_RUNTIME_MODE = "demo"
+        
+        res = client.get("/api/v1/health")
+        assert res.status_code == 200
+        data = res.json()
+        
+        # Top-level truthful reporting
+        assert data["runtime_mode"] == "hybrid"
+        assert data["status"] == "healthy"
+        
+        # Independent provider evidence and modes
+        gemini_info = data["providers"]["google_gemini"]
+        assert gemini_info["mode"] == "live"
+        assert "evidence" in gemini_info
+        assert "configured" in gemini_info
+        assert gemini_info["status"] in ("LIVE_CONFIGURED", "LIVE_UNCONFIGURED")
+        
+        ch_info = data["providers"]["clickhouse_mcp"]
+        assert ch_info["mode"] == "demo"
+        assert "evidence" in ch_info
+        assert "configured" in ch_info
+        assert ch_info["status"] == "DEMO_MODE_ACTIVE"
+    finally:
+        settings.RUNTIME_MODE = orig_rm
+        settings.GEMINI_RUNTIME_MODE = orig_gm
+        settings.PARTNER_RUNTIME_MODE = orig_pm
+
+
+def test_health_endpoint_truthful_live():
+    orig_rm = settings.RUNTIME_MODE
+    orig_gm = settings.GEMINI_RUNTIME_MODE
+    orig_pm = settings.PARTNER_RUNTIME_MODE
+    try:
+        # Configure fully live mode
+        settings.GEMINI_RUNTIME_MODE = "live"
+        settings.PARTNER_RUNTIME_MODE = "live"
+        
+        res = client.get("/api/v1/health")
+        assert res.status_code == 200
+        data = res.json()
+        
+        assert data["runtime_mode"] == "live"
+        assert data["providers"]["google_gemini"]["mode"] == "live"
+        assert data["providers"]["clickhouse_mcp"]["mode"] == "live"
+    finally:
+        settings.RUNTIME_MODE = orig_rm
+        settings.GEMINI_RUNTIME_MODE = orig_gm
+        settings.PARTNER_RUNTIME_MODE = orig_pm
+
+
+@pytest.mark.asyncio
+async def test_independent_fail_closed_behavior():
+    orig_rm = settings.RUNTIME_MODE
+    orig_gm = settings.GEMINI_RUNTIME_MODE
+    orig_pm = settings.PARTNER_RUNTIME_MODE
+    orig_client = gemini_service.client
+    try:
+        # Case: Gemini is LIVE (and unconfigured), ClickHouse is DEMO
+        settings.GEMINI_RUNTIME_MODE = "live"
+        settings.PARTNER_RUNTIME_MODE = "demo"
+        gemini_service.client = None
+        
+        # Gemini service must use GEMINI_RUNTIME_MODE and fail closed
+        assert gemini_service.runtime_mode == "live"
+        gem_res = gemini_service.extract_continuity_tokens("Maya Vance", "Test shot prompt")
+        assert gem_res["success"] is False
+        assert gem_res["mode"] in ("live_unavailable", "live_error")
+        
+        # ClickHouse MCP must use PARTNER_RUNTIME_MODE and run in demo mode
+        assert clickhouse_mcp_server.runtime_mode == "demo"
+        ch_res = await clickhouse_mcp_server.call_tool("run_query", {"query": "SELECT 1"})
+        assert ch_res["status"] == "success"
+        assert ch_res["mode"] == "demo"
+        
+        # Case: Gemini is DEMO, ClickHouse is LIVE (and unconfigured)
+        settings.GEMINI_RUNTIME_MODE = "demo"
+        settings.PARTNER_RUNTIME_MODE = "live"
+        
+        assert gemini_service.runtime_mode == "demo"
+        gem_res2 = gemini_service.extract_continuity_tokens("Maya Vance", "Test shot prompt")
+        assert gem_res2["success"] is True
+        assert gem_res2["mode"] == "demo"
+        
+        assert clickhouse_mcp_server.runtime_mode == "live"
+        ch_res2 = await clickhouse_mcp_server.call_tool("run_query", {"query": "SELECT 1"})
+        assert ch_res2["status"] == "error"
+        assert ch_res2["mode"] in ("live_unavailable", "live_error")
+    finally:
+        settings.RUNTIME_MODE = orig_rm
+        settings.GEMINI_RUNTIME_MODE = orig_gm
+        settings.PARTNER_RUNTIME_MODE = orig_pm
+        gemini_service.client = orig_client
+
+
+@pytest.mark.asyncio
+async def test_hybrid_continuity_workflow_truthful_execution():
+    orig_rm = settings.RUNTIME_MODE
+    orig_gm = settings.GEMINI_RUNTIME_MODE
+    orig_pm = settings.PARTNER_RUNTIME_MODE
+    orig_client = gemini_service.client
+    try:
+        # Hybrid 1: Gemini Demo (works), ClickHouse Live unconfigured (fails closed)
+        settings.GEMINI_RUNTIME_MODE = "demo"
+        settings.PARTNER_RUNTIME_MODE = "live"
+        
+        res = await continuity_agent.verify_shot_continuity("Maya Vance", "Cyber trenchcoat in rain")
+        assert res["status"] == "LIVE_ERROR"
+        assert res["mode"] in ("live_unavailable", "live_error")
+        assert "gemini_extracted_tokens" in res  # Gemini completed successfully in demo mode
+        
+        # Hybrid 2: Gemini Live unconfigured (fails closed), ClickHouse Demo
+        settings.GEMINI_RUNTIME_MODE = "live"
+        settings.PARTNER_RUNTIME_MODE = "demo"
+        gemini_service.client = None
+        
+        res2 = await continuity_agent.verify_shot_continuity("Maya Vance", "Cyber trenchcoat in rain")
+        assert res2["status"] == "LIVE_ERROR"
+        assert res2["mode"] in ("live_unavailable", "live_error")
+        assert res2["clickhouse_evidence_source"] == "mcp-clickhouse (Not Reached)"
+    finally:
+        settings.RUNTIME_MODE = orig_rm
+        settings.GEMINI_RUNTIME_MODE = orig_gm
+        settings.PARTNER_RUNTIME_MODE = orig_pm
+        gemini_service.client = orig_client
+
+

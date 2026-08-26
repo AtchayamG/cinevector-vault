@@ -18,18 +18,33 @@ class GeminiService:
         self.project = settings.GOOGLE_CLOUD_PROJECT
         self.location = settings.GOOGLE_CLOUD_LOCATION
         self.model_name = settings.GEMINI_MODEL
-        self.runtime_mode = settings.RUNTIME_MODE
+        self._runtime_mode: Optional[str] = None
         self.client = None
         self._init_client()
 
+    @property
+    def runtime_mode(self) -> str:
+        if self._runtime_mode is not None:
+            return self._runtime_mode
+        return settings.GEMINI_RUNTIME_MODE
+
+    @runtime_mode.setter
+    def runtime_mode(self, value: Optional[str]):
+        if value is None or value.lower() == settings.GEMINI_RUNTIME_MODE.lower():
+            self._runtime_mode = None
+        else:
+            self._runtime_mode = value.lower()
+
     def _init_client(self):
-        if self.api_key or (self.project and self.location):
+        if self.api_key or (self.project and self.location) or os.getenv("K_SERVICE") or os.getenv("GOOGLE_APPLICATION_CREDENTIALS"):
             try:
                 from google import genai
                 if self.api_key:
                     self.client = genai.Client(api_key=self.api_key)
+                elif self.project:
+                    self.client = genai.Client(vertexai=True, project=self.project, location=self.location or "global")
                 else:
-                    self.client = genai.Client(vertexai=True, project=self.project, location=self.location)
+                    self.client = genai.Client(vertexai=True, location=self.location or "global")
                 logger.info(f"Initialized Google GenAI Client with model: {self.model_name} (Mode: LIVE)")
             except Exception as e:
                 logger.warning(f"Could not initialize google-genai client ({e}).")
@@ -50,7 +65,7 @@ class GeminiService:
                 return {
                     "success": False,
                     "mode": "live_unavailable",
-                    "error": "Gemini API credentials (GEMINI_API_KEY or GOOGLE_CLOUD_PROJECT) not configured in .env",
+                    "error": "Gemini API credentials (GEMINI_API_KEY, GOOGLE_CLOUD_PROJECT, or Cloud Run ADC) not configured in environment",
                     "evidence_source": "Google GenAI API (Unconfigured)",
                     "data": None
                 }

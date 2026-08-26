@@ -2,7 +2,7 @@ import os
 import sys
 import shutil
 import logging
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from app.config import settings
 from app.services.clickhouse_service import clickhouse_service
 
@@ -47,6 +47,20 @@ class ClickHouseMCPClient:
     """
     def __init__(self):
         self.server_name = "mcp-clickhouse"
+        self._runtime_mode: Optional[str] = None
+
+    @property
+    def runtime_mode(self) -> str:
+        if self._runtime_mode is not None:
+            return self._runtime_mode
+        return settings.PARTNER_RUNTIME_MODE
+
+    @runtime_mode.setter
+    def runtime_mode(self, value: Optional[str]):
+        if value is None or value.lower() == settings.PARTNER_RUNTIME_MODE.lower():
+            self._runtime_mode = None
+        else:
+            self._runtime_mode = value.lower()
 
     def list_tools(self) -> List[Dict[str, Any]]:
         return OFFICIAL_MCP_TOOLS
@@ -133,7 +147,7 @@ class ClickHouseMCPClient:
     async def call_tool(self, tool_name: str, arguments: Dict[str, Any]) -> Dict[str, Any]:
         logger.info(f"Official ClickHouse MCP Tool Request: {tool_name} with {arguments}")
         
-        if settings.RUNTIME_MODE == "live":
+        if self.runtime_mode == "live":
             return await self._execute_live_mcp_call(tool_name, arguments)
 
         # Demo Mode
@@ -165,7 +179,7 @@ class ClickHouseMCPClient:
         
         return {
             "status": "error",
-            "mode": "demo" if settings.RUNTIME_MODE != "live" else "live_error",
+            "mode": "demo" if self.runtime_mode != "live" else "live_error",
             "error": f"Tool '{tool_name}' unknown to mcp-clickhouse"
         }
 

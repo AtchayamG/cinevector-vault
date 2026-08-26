@@ -1,6 +1,9 @@
 import os
+from typing import List, Optional
+from dotenv import load_dotenv
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from typing import List
+
+load_dotenv()
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
@@ -12,6 +15,49 @@ class Settings(BaseSettings):
     
     # Runtime Mode: 'live' or 'demo'
     RUNTIME_MODE: str = os.getenv("RUNTIME_MODE", "demo").lower()
+    _gemini_runtime_mode: Optional[str] = None
+    _partner_runtime_mode: Optional[str] = None
+
+    def __init__(self, **values):
+        super().__init__(**values)
+        if "GEMINI_RUNTIME_MODE" in values and values["GEMINI_RUNTIME_MODE"] is not None:
+            self._gemini_runtime_mode = str(values["GEMINI_RUNTIME_MODE"]).lower()
+        if "PARTNER_RUNTIME_MODE" in values and values["PARTNER_RUNTIME_MODE"] is not None:
+            self._partner_runtime_mode = str(values["PARTNER_RUNTIME_MODE"]).lower()
+
+    @property
+    def GEMINI_RUNTIME_MODE(self) -> str:
+        if self._gemini_runtime_mode is not None:
+            return self._gemini_runtime_mode
+        env_val = os.getenv("GEMINI_RUNTIME_MODE")
+        if env_val:
+            return env_val.lower()
+        return self.RUNTIME_MODE.lower()
+
+    @GEMINI_RUNTIME_MODE.setter
+    def GEMINI_RUNTIME_MODE(self, val: Optional[str]):
+        self._gemini_runtime_mode = val.lower() if val is not None else None
+
+    @property
+    def PARTNER_RUNTIME_MODE(self) -> str:
+        if self._partner_runtime_mode is not None:
+            return self._partner_runtime_mode
+        env_val = os.getenv("PARTNER_RUNTIME_MODE")
+        if env_val:
+            return env_val.lower()
+        return self.RUNTIME_MODE.lower()
+
+    @PARTNER_RUNTIME_MODE.setter
+    def PARTNER_RUNTIME_MODE(self, val: Optional[str]):
+        self._partner_runtime_mode = val.lower() if val is not None else None
+
+    @property
+    def effective_runtime_mode(self) -> str:
+        g = self.GEMINI_RUNTIME_MODE
+        p = self.PARTNER_RUNTIME_MODE
+        if g == p:
+            return g
+        return "hybrid"
     
     # Google Gemini
     GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "")
@@ -38,7 +84,12 @@ class Settings(BaseSettings):
 
     @property
     def is_gemini_configured(self) -> bool:
-        return bool(self.GEMINI_API_KEY or (self.GOOGLE_CLOUD_PROJECT and self.GOOGLE_CLOUD_LOCATION))
+        return bool(
+            self.GEMINI_API_KEY
+            or (self.GOOGLE_CLOUD_PROJECT and self.GOOGLE_CLOUD_LOCATION)
+            or os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+            or os.getenv("K_SERVICE")
+        )
 
     @property
     def is_clickhouse_configured(self) -> bool:

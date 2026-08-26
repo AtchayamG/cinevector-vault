@@ -19,7 +19,7 @@ class ClickHouseService:
         self.user = settings.CLICKHOUSE_USER
         self.password = settings.CLICKHOUSE_PASSWORD
         self.database = settings.CLICKHOUSE_DATABASE
-        self.runtime_mode = settings.RUNTIME_MODE
+        self._runtime_mode: Optional[str] = None
         self.client = None
         
         # Seed Reference Catalog (3 Local Reference Shots)
@@ -53,6 +53,19 @@ class ClickHouseService:
             }
         ]
         self._init_connection()
+
+    @property
+    def runtime_mode(self) -> str:
+        if self._runtime_mode is not None:
+            return self._runtime_mode
+        return settings.PARTNER_RUNTIME_MODE
+
+    @runtime_mode.setter
+    def runtime_mode(self, value: Optional[str]):
+        if value is None or value.lower() == settings.PARTNER_RUNTIME_MODE.lower():
+            self._runtime_mode = None
+        else:
+            self._runtime_mode = value.lower()
 
     def _init_connection(self):
         if self.password and self.runtime_mode == "live":
