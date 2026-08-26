@@ -74,7 +74,7 @@ def test_health_endpoint_honest_config():
     assert response.status_code == 200
     data = response.json()
     assert data["status"] == "healthy"
-    assert data["providers"]["google_gemini"]["model"] == "gemini-3.7-flash"
+    assert data["providers"]["google_gemini"]["model"] == settings.GEMINI_MODEL
     assert data["providers"]["clickhouse_mcp"]["server"] == "mcp-clickhouse"
 
 def test_ui_workflow_endpoints():
@@ -183,3 +183,7 @@ def test_demo_labels_on_paint():
     assert '3. Local SQL Fixtures Console' in ui_res.text
     assert '⚡ Run Local Deterministic Continuity Fixtures' in ui_res.text
     assert "Local fixture matched reference shots:" in ui_res.text
+
+
+def test_vertex_default_location_supports_gemini_37():
+    assert settings.GOOGLE_CLOUD_LOCATION == "global"
