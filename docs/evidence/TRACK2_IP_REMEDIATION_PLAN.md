@@ -1,4 +1,4 @@
-# 🛠️ Track 2: Visual IP Remediation Plan
+# 🛠️ Track 2: Visual IP Remediation Plan (5-Shot Originality Scope)
 
 - **Project:** CineVector Vault (Track 2 — ClickHouse Track)
 - **Target Model:** `veo-3.1-fast-generate-001` on Google Cloud Vertex AI (`us-central1`)
@@ -8,32 +8,59 @@
 
 ## 🎯 Remediation Objective
 
-Replace the 4 shots (Shots 03, 04, 06, and 07) that feature the commercial-resembling "Armored Titan" with a **100% original Crystalline Cyber-Paladin (Vanguard-Aegis)** hero archetype.
-
-### Redesigned Hero Identity: **"Vanguard-Aegis (Aegis-01)"**
-- **Original Silhouette:** Heavy industrial cobalt-blue and matte-black carbon-composite exoskeleton with geometric shoulder-mounted particle prisms and a faceted angular sensor visor (NO circular chest reactor, NO gold/red plating, NO humanoid faceplate).
-- **Original Power System:** Deployable dual crystalline forearm hard-light energy shields and shoulder-mounted dispersion pulse arrays (NO palm repulsor blasts).
+Replace the five shots (Shots 02, 03, 04, 06, and 07) that contain recognizable commercial superhero tropes (tether-swinging movement and armored chest-reactor/palm-repulsor designs) with **100% original sci-fi hero characters and movement systems**.
 
 ---
 
-## 📋 Minimal Shot Replacement Scope
+## 👥 Original Team Architecture
 
-| Shot # | Shot Action & Original Redesign | Prompt Guidance | Status |
+### 1. **Flux Cartographer**
+- **Costume:** Asymmetrical teal-and-ivory high-tech expedition suit with modular utility pouches and reinforced ceramic joints.
+- **Movement System:** Glides gracefully along two glowing, magnetically suspended ribbon rails curving through open air between buildings (NO webs, NO tether swinging, NO wall crawling, NO familiar superhero poses).
+- **Head & Face:** Open human face with a sleek transparent geometric navigation HUD visor.
+
+### 2. **Vanguard-Aegis (AEGIS-01)**
+- **Chassis:** Open-faced pilot inside a heavy asymmetrical cobalt-blue ceramic and matte-carbon composite industrial exoframe.
+- **Architecture:** Broad offset shoulder architecture with external angular particle prisms and visible non-humanoid mechanical support limbs.
+- **Power System:** Energy originates only from deployable faceted forearm hard-light shield vanes and external shoulder dispersion prisms.
+- **Strict Prohibitions:** NO circular chest device, NO glowing chest core, NO palm repulsors, NO gold/red palette, NO humanoid metallic faceplate, NO glowing eye slits, NO Iron Man / War Machine / Halo silhouettes.
+
+### 3. **Violet Striker**
+- **Audited Status:** Original design verified in Shot 05 (retained).
+- **Costume & Ability:** Sleek dark navy tactical stealth suit, short dark hair, wielding dual glowing violet crystalline energy daggers with short-range kinetic phase leaps.
+
+---
+
+## 📋 5-Shot Replacement Specifications
+
+| Shot # | Shot Action & Original Redesign | Guidance Frame | Target Model |
 | :---: | :--- | :--- | :---: |
-| **03 (v2)** | **Aegis-01 Sky Insertion:** Heavy cobalt-blue/carbon-composite mech warrior drops from clouds with back-mounted jet thrusters and deployed geometric forearm energy shields. | `shot03_guidance_v2.png` | Proposed |
-| **04 (v2)** | **Drone Hard-Light Neutralization:** Aegis-01 projects an expansive hexagonal hard-light barrier from forearm bracers, deflecting laser fire and slamming drone with a kinetic shockwave. | `shot04_guidance_v2.png` | Proposed |
-| **06 (v2)** | **Tri-Hero Heliport Assembly:** Synchronized landing with Hero 1 (electric tether acrobat), Aegis-01 (cobalt hard-light vanguard), and Hero 3 (violet crystalline striker). | `shot06_landing_guidance_v2.png` | Proposed |
-| **07 (v2)** | **Combined Dimensional Strike:** Three original heroes unleash combined hard-light barrier, electric anchors, and energy blades toward the rift. | `shot07_guidance_v2.png` | Proposed |
+| **02 (v2)** | **Flux Cartographer Ribbon Transit:** Glides along curving magnetic ribbon rails through open rainy city air, monitoring navigational route on wrist/visor HUD. | `shot02_guidance_v2.png` | `veo-3.1-fast-generate-001` |
+| **03 (v2)** | **Vanguard-Aegis Atmospheric Drop:** Heavy cobalt-blue ceramic exoframe with open-cockpit pilot drops through storm clouds onto elevated concrete highway platform, deploying forearm shield vanes. | `shot03_guidance_v2.png` | `veo-3.1-fast-generate-001` |
+| **04 (v2)** | **Drone Hard-Light Neutralization:** Aegis-01 projects an expansive faceted hard-light barrier from forearm bracer to deflect drone lasers, shattering drone with a kinetic shockwave from shoulder prism. | `shot04_guidance_v2.png` | `veo-3.1-fast-generate-001` |
+| **06 (v2)** | **Tri-Hero Helipad Assembly:** Three original heroes assemble on skyscraper helipad: Flux Cartographer (ribbon rail dismount), Aegis-01 (cobalt mech with shield vane), and Violet Striker (navy suit with crystalline daggers). | `shot06_guidance_v2.png` | `veo-3.1-fast-generate-001` |
+| **07 (v2)** | **Synchronized Dimensional Strike:** Three heroes combine powers toward sky rift: magnetic trajectory paths, expansive hard-light defense barrier, and crystalline energy daggers. | `shot07_guidance_v2.png` | `veo-3.1-fast-generate-001` |
 
 ---
 
 ## 💰 Cost & Budget Quotation
 
-- **Model:** `veo-3.1-fast-generate-001`
-- **Resolution:** 1080p @ 24 fps, 8 seconds per shot
+- **Model:** `veo-3.1-fast-generate-001` (Vertex AI `us-central1`)
+- **Resolution & Duration:** 1080p @ 24 fps, 8 seconds per shot
 - **Cost per Call:** ~US$0.96
-- **Proposed Call Scope:** 4 replacement shots = **US$3.84**
-- **Hard Cap (with 2 contingency retries):** 6 calls = **US$5.76**
-- **Current Promotional Budget Remaining:** ~$50.08 (sufficient)
+- **Minimum Proposed Call Scope:** 5 replacement shots = **US$4.80**
+- **Hard Cap (allowing 2 contingency retries):** 7 calls = **US$6.72**
+- **Billing Notice:** Promotional credit and ordinary billing fallback will be verified immediately prior to execution on Google Cloud project `atlas-495807`. No private billing identifiers are stored.
 
-> 🛑 **SAFETY STOP GATE:** No generation will execute without Atchayam's explicit action-time approval.
+---
+
+## 🔍 Pre-Generation Guidance Frame Resemblance Audit
+
+All 5 guidance images have been generated, inspected, and verified:
+1. `shot02_guidance_v2.png`: **PASS** — Magnetic ribbon transit; zero web/rope swinging.
+2. `shot03_guidance_v2.png`: **PASS** — Open cockpit industrial cobalt mech; zero chest reactors or faceplates.
+3. `shot04_guidance_v2.png`: **PASS** — Forearm hard-light shield; zero palm repulsors or chest beams.
+4. `shot06_guidance_v2.png`: **PASS** — Cohesive tri-hero group staging with 100% original silhouettes.
+5. `shot07_guidance_v2.png`: **PASS** — Synchronized sci-fi strike toward rift; zero franchise tropes.
+
+> 🛑 **APPROVAL GATE:** No paid generation call will be initiated until Atchayam provides explicit action-time confirmation.

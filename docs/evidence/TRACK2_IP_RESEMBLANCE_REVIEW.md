@@ -18,10 +18,10 @@
 | Shot # | Shot Title | Visual Audit Findings | Risk Assessment | Gate Status |
 | :---: | :--- | :--- | :---: | :---: |
 | **01** | **Dimensional Rift Opening** | Violet quantum rift tearing open over a rainy futuristic cityscape. Pure atmospheric VFX with no character models. | Low | **PASS** |
-| **02** | **Cyber-Acrobat Electric Swing** | Hero 1 in cyan-accented athletic dark tech-suit swinging via electric tether cables. While the swinging kinetic trajectory evokes aerial acrobats (e.g. Spider-Man), the costume geometry and electric tether mechanics are sufficiently original. | Medium | **PASS WITH NOTE** |
-| **03** | **Armored Titan Sky Descent** | Hero 2 descends from clouds in dark gold and titanium armored plating with glowing eye slits and metallic faceplate geometry. Silhouette heavily evokes armored superhero archetypes. | High | **RISK** |
+| **02** | **Cyber-Acrobat Electric Swing** | Hero 1 in cyan-accented athletic dark tech-suit swinging via electric tether cables. While the suit is original, the aerial swinging kinetic trajectory can evoke commercial wall-crawling superhero tropes. Included in remediation scope for replacement with the original Flux Cartographer magnetic ribbon rail system. | Medium | **REPLACE (PROACTIVE)** |
+| **03** | **Armored Titan Sky Descent** | Hero 2 descends from clouds in dark gold and titanium armored plating with glowing eye slits and metallic faceplate geometry. Silhouette heavily evokes armored superhero archetypes. | High | **FAIL / BLOCKED** |
 | **04** | **Highway Drone Interception** | Close/medium hero shot showing gold/grey metallic chassis, a **circular glowing amber chest device**, and **dual glowing energy blasts fired directly from palms**. Strong visual overlap with Iron Man repulsor/arc-reactor iconography. | Critical | **FAIL / BLOCKED** |
-| **05** | **Energy Striker Portal Entry** | Hero 3 in dark stealth suit stepping through violet portal with dual crystalline energy daggers. Original design with zero trademark overlap. | Low | **PASS** |
+| **05** | **Energy Striker Portal Entry** | Hero 3 in dark stealth suit stepping through violet portal with dual crystalline energy daggers. Original design with zero trademark overlap. | Low | **PASS (RETAINED)** |
 | **06** | **Tri-Hero Rooftop Assembly** | Synchronized landing of all three heroes on skyscraper helipad. Armored Titan's chest reactor and helmet faceplate dominate central framing. | High | **FAIL / BLOCKED** |
 | **07** | **Synchronized Incursion Strike** | Three heroes on bridge threshold. Armored Titan prominently displays twin palm repulsors and glowing circular chest core facing camera. | Critical | **FAIL / BLOCKED** |
 
@@ -30,5 +30,5 @@
 ## 🚨 Action Directive
 
 1. **Publication Hold:** The master reel `nexus_vanguard_multiverse_trailer.mp4` must **NOT** be published to public YouTube, Devpost media carousels, or public release assets.
-2. **Metadata Safe State:** The application UI will retain the verified fixed-artifact metadata in **Publication Pending / Audit Hold** mode.
-3. **Remediation Plan:** See [`TRACK2_IP_REMEDIATION_PLAN.md`](./TRACK2_IP_REMEDIATION_PLAN.md) for the exact proposal to replace the 4 affected shots with 100% original crystalline/biomech cyber-sentinel designs upon user approval.
+2. **Metadata Safe State:** The application UI retains the verified fixed-artifact metadata in **Publication Pending / Audit Hold** mode.
+3. **Remediation Plan:** See [`TRACK2_IP_REMEDIATION_PLAN.md`](./TRACK2_IP_REMEDIATION_PLAN.md) for the exact 5-shot replacement plan (Shots 02, 03, 04, 06, 07) introducing the original **Flux Cartographer** and **Vanguard-Aegis (AEGIS-01)** heroes upon user approval.
