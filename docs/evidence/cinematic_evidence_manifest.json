@@ -1,0 +1,53 @@
+{
+  "evidence_type": "supplemental_pregenerated_cinematic_evidence",
+  "production_title": "Nexus Vanguard: Multiverse Incursion",
+  "track_number": 2,
+  "model": "veo-3.1-fast-generate-001",
+  "generation_platform": "Google Cloud Vertex AI",
+  "total_duration_seconds": 56.03,
+  "total_shots": 7,
+  "resolution": "1920x1080",
+  "fps": 24,
+  "audio_format": "AAC 48kHz stereo (Native Veo Foley)",
+  "master_filename": "nexus_vanguard_multiverse_trailer.mp4",
+  "master_sha256": "df66d91f230c58ac31c0295cbb8d2a803a75328b38216a58fadac566f66ea05d",
+  "public_asset_url": "__PENDING_PUBLIC_ASSET_URL__",
+  "truthful_disclaimer": "Supplemental pre-generated cinematic evidence created ahead of time with Veo 3.1 Fast on Vertex AI. The hosted application streams a fixed verified artifact; it does not generate this video on request.",
+  "shots": [
+    {
+      "shot": 1,
+      "title": "Dimensional Rift Opening",
+      "duration_s": 8.0
+    },
+    {
+      "shot": 2,
+      "title": "Cyber-Acrobat Electric Swing",
+      "duration_s": 8.0
+    },
+    {
+      "shot": 3,
+      "title": "Armored Titan Sky Descent",
+      "duration_s": 8.0
+    },
+    {
+      "shot": 4,
+      "title": "Highway Drone Interception",
+      "duration_s": 8.0
+    },
+    {
+      "shot": 5,
+      "title": "Energy Striker Portal Entry",
+      "duration_s": 8.0
+    },
+    {
+      "shot": 6,
+      "title": "Tri-Hero Rooftop Assembly",
+      "duration_s": 8.0
+    },
+    {
+      "shot": 7,
+      "title": "Synchronized Incursion Strike",
+      "duration_s": 8.0
+    }
+  ]
+}
