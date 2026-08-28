@@ -29,7 +29,9 @@
 - **Measured Integrated Loudness:** **$-16.0\text{ LUFS}$** (Target $-16\text{ to }-14\text{ LUFS}$).
 - **Maximum True Peak:** **$-1.1\text{ dBFS}$** ($\le -1.0\text{ dBTP}$, zero clipping).
 - **Loudness Range (LRA):** $8.1\text{ LU}$.
-- **Video Synchronization:** Sample-accurate 1,341 frames @ 24 fps (56.166 seconds) with natural acoustic decay to the final frame.
+- **Video-Stream Duration:** 56.000 seconds (1,341 frames @ 24 fps)
+- **Audio / Container Duration:** 56.064 seconds (AAC 48 kHz stereo)
+- **Video Synchronization:** Exact shot-by-shot alignment across all 7 scene transitions with natural acoustic decay to the final frame.
 
 ---
 
