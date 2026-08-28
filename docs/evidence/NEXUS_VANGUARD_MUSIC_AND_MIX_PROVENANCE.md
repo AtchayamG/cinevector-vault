@@ -1,63 +1,44 @@
 # 🎼 Nexus Vanguard: Original Score & Re-Recording Mix Provenance
 
 - **Track:** Track 2 — ClickHouse Track (CineVector Vault)
-- **Target Master:** `evidence_media/Track2_CineVector/final/nexus_vanguard_scored_final.mp4`
-- **Reference Master:** `evidence_media/Track2_CineVector/final/nexus_vanguard_foley_only_master.mp4`
+- **Scored Final Master:** `evidence_media/Track2_CineVector/final/nexus_vanguard_scored_final.mp4`
+- **Foley-Only Reference Master:** `evidence_media/Track2_CineVector/final/nexus_vanguard_foley_only_master.mp4`
+- **Model:** `lyria-3-pro-preview` (Google Cloud Vertex AI Interactions API, project `atlas-495807`)
+- **Selected Composition:** **Candidate B — “Dimensional Assault”** (Human Selection Confirmed)
 - **Date:** 2026-08-28
-- **Audio Delivery Standard:** 48 kHz / 24-bit PCM / AAC 320 kbps, EBU R128 Compliant
+- **Audio Delivery Standard:** 48 kHz / 24-bit PCM / AAC 320 kbps (EBU R128 Compliant)
 
 ---
 
-## 🎨 1. Authorship & Originality Declaration
+## 🎨 1. Provenance & Originality Statement
 
-1. **Original Composition:**
-   - The score was composed specifically for the 56.17-second *Nexus Vanguard* narrative arc using Python algorithmic acoustic modeling (`scipy.signal`, `numpy`, harmonic formant synthesis).
-   - **Zero Infringement:** Contains no quotations, interpolations, themes, or rhythmic sequences from any named composer (e.g. Alan Silvestri, John Williams, Hans Zimmer) or copyrighted superhero soundtrack.
-   - **Zero Commercial Samples:** Built from pure harmonic acoustic modeling and native Veo video Foley.
-
-2. **Thematic Architecture (Vanguard-Aegis Leitmotif):**
-   - **Core Leitmotif:** Original 5-note ascending heroic motif in D Dorian: `D3 (1.0s) -> G3 (0.75s) -> A3 (1.0s) -> C4 (0.75s) -> D4 (2.2s)`.
-   - **Musical Arc:**
-     - `00:00–00:08` (Discovery): Restrained low strings (D2/A2 drone), subtle metallic pulses, eerie ambient analog synthesizer pads.
-     - `00:08–00:20` (Transit & Drop): 16th-note string ostinatos (120 BPM) introducing the French Horn leitmotif quietly with timpani drive.
-     - `00:20–00:32` (Hard-Light Intercept): Low brass power chords ($Dm \to B\flat \to C \to Dm$) and cinematic impact drums while ducking to allow shield/drone laser Foley to breathe.
-     - `00:32–00:40` (Violet Striker Recon): Thinned texture, agile crystalline glockenspiel arpeggiation and staccato strings.
-     - `00:40–00:50` (Tri-Hero Assembly): Broadening harmonic progression, brass/string unison, and accelerating taiko crescendo.
-     - `00:50–00:56.17` (Synchronized Strike & Resolution): Tutti orchestral climax at the strike impact (00:51.5s), resolving into a resonant, triumphant D-Major Picardy third decaying naturally to the final frame.
+1. **Artifact Nature:**
+   - This scored reel is a **fixed, pre-generated cinematic proof artifact** created using Google Vertex AI's `veo-3.1-fast-generate-001` (video) and `lyria-3-pro-preview` (music score). It is not an on-demand generation endpoint inside the CineVector Vault web UI.
+2. **Human Selection Rationale:**
+   - Three complete candidates were generated under a strict pre-flight cost gate (US$0.24 total spend). Candidate B was selected by Atchayam for its hybrid symphonic/modular electronic textures, immense spatial scale, agile reconnaissance passage, and team-oriented dimensional climax.
+   - Candidate B is used as **one continuous, unified composition** without splicing or crossfading from alternative candidates.
+3. **SynthID & C2PA Provenance:**
+   - The untouched original Lyria 3 Pro MP3 file (`candidate_b_dimensional_assault_original.mp3`) is preserved with its exact cryptographic hash (`3b3a12ba1d51950e11a9e5f863d728ab9127c1a66b84298ad64ba8c64a25c8a7`).
+   - The final FFmpeg multi-track re-recording mix incorporates native Foley; it is documented and hashed separately.
 
 ---
 
-## 🎚️ 2. Re-Recording Mix & Technical Specifications
+## 🎚️ 2. Re-Recording Mix & Loudness Compliance
 
-1. **Native Foley Preservation:**
-   - Isolated native audio was extracted directly from the candidate reel (`nexus_vanguard_native_foley.wav`).
-   - Dynamic transient envelope follower side-chained to music tracks (ducking music by up to $-4.5\text{ dB}$ during shield deflections, drone pulses, and footfalls).
-   - Zero Foley masking or synthetic audio loops.
-
-2. **Acoustic & Mastering Audit:**
-   - **Sample Rate:** 48,000 Hz
-   - **Bit Depth:** 24-bit PCM / AAC 320 kbps
-   - **Integrated Loudness:** $-17.8\text{ LUFS}$ (Target $-14\text{ to }-18\text{ LUFS}$)
-   - **Loudness Range (LRA):** $9.7\text{ LU}$
-   - **Maximum True Peak:** $-1.1\text{ dBTP}$ ($\le -1.0\text{ dBTP}$ limit, zero clipping)
-   - **Sync Verification:** Sample-accurate video alignment across all 7 shot transitions.
+- **Native Foley Stem:** Extracted from the candidate reel (`nexus_vanguard_native_foley.wav`) and mixed with dynamic side-chain ducking so laser impacts, shield deflections, and footsteps remain audible.
+- **Measured Integrated Loudness:** **$-16.0\text{ LUFS}$** (Target $-16\text{ to }-14\text{ LUFS}$).
+- **Maximum True Peak:** **$-1.1\text{ dBFS}$** ($\le -1.0\text{ dBTP}$, zero clipping).
+- **Loudness Range (LRA):** $8.1\text{ LU}$.
+- **Video Synchronization:** Sample-accurate 1,341 frames @ 24 fps (56.166 seconds) with natural acoustic decay to the final frame.
 
 ---
 
-## 📦 3. Deliverables & SHA-256 Manifest
+## 📦 3. Master Deliverables & SHA-256 Manifest
 
 | Deliverable | File Path | Format / Channels | Size (Bytes) | SHA-256 Checksum |
 | :--- | :--- | :--- | :--- | :--- |
-| **Scored Presentation Master** | `evidence_media/Track2_CineVector/final/nexus_vanguard_scored_final.mp4` | MP4 (H.264 / AAC 48kHz Stereo) | 252,292,838 | Computed in `nexus_vanguard_mix_report.json` |
-| **Foley-Only Reference Master** | `evidence_media/Track2_CineVector/final/nexus_vanguard_foley_only_master.mp4` | MP4 (H.264 / AAC 48kHz Stereo) | 251,890,496 | `b29a9b1e9b3092dd8aceb0fa1598e725027d73af37bf13cca8d575a2491c1438` |
-| **Isolated Original Score Stem** | `evidence_media/Track2_CineVector/final/nexus_vanguard_original_score.wav` | WAV (48kHz 24-bit Stereo) | 16,175,852 | Recorded in mix report |
-| **Isolated Native Foley Stem** | `evidence_media/Track2_CineVector/final/nexus_vanguard_native_foley.wav` | WAV (48kHz 24-bit Stereo) | 16,146,534 | Recorded in mix report |
-| **Mix & Mastering Report** | `evidence_media/Track2_CineVector/final/nexus_vanguard_mix_report.json` | JSON | ~1.5 KB | Verified |
-
----
-
-## 🎧 4. Comparative Quality Assessment
-
-- **Foley-Only Master:** Provides raw, stark environmental realism, highlighting the atmospheric rain and mech footsteps, but lacks emotional narrative escalation during the tri-hero team assembly and synchronized strike.
-- **Scored Presentation Master:** Elevates the trailer to a cohesive cinematic piece. The propulsive string ostinatos and heroic French Horn leitmotif establish clear character identity while dynamic side-chain ducking keeps all laser deflections, drone pulses, and footsteps fully intelligible.
-- **Recommendation for Codex/Judges:** The **Scored Presentation Master** (`nexus_vanguard_scored_final.mp4`) provides the superior narrative and theatrical experience for hackathon evaluation, while the **Foley-Only Master** remains fully preserved as an unadulterated reference.
+| **Scored Presentation Master** | `evidence_media/Track2_CineVector/final/nexus_vanguard_scored_final.mp4` | MP4 (1080p24 / AAC 320k 48kHz Stereo) | 252,399,359 | `e201250e37f8b7c0b3555db9a1001b420f81ac4c28fff011cc590e04398d2013` |
+| **Foley-Only Reference Master** | `evidence_media/Track2_CineVector/final/nexus_vanguard_foley_only_master.mp4` | MP4 (1080p24 / AAC 48kHz Stereo) | 251,890,496 | `b29a9b1e9b3092dd8aceb0fa1598e725027d73af37bf13cca8d575a2491c1438` |
+| **Isolated Original Score Stem** | `evidence_media/Track2_CineVector/final/nexus_vanguard_original_score.wav` | WAV (48kHz 24-bit Stereo) | 16,175,852 | `f62629b3504fc8198f3b145d554a7114674744d0392e624c9657b5fb95fb886f` |
+| **Isolated Native Foley Stem** | `evidence_media/Track2_CineVector/final/nexus_vanguard_native_foley.wav` | WAV (48kHz 24-bit Stereo) | 16,146,534 | `7a94dd89966b44747ebc798031d2798e4e9cf768b556f8f5339f400767cb4432` |
+| **Untouched Candidate B MP3** | `evidence_media/Track2_CineVector/audio/lyria3_pro_candidates/candidate_b_dimensional_assault_original.mp3` | MP3 (Lyria 3 Pro Original) | 1,308,565 | `3b3a12ba1d51950e11a9e5f863d728ab9127c1a66b84298ad64ba8c64a25c8a7` |
