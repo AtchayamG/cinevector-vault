@@ -13,7 +13,7 @@ A multimodal media data lake powered by official ClickHouse MCP (`mcp-clickhouse
 - **Live Application:** https://cinevector-vault.vercel.app/
 - **Public Repository:** https://github.com/AtchayamG/cinevector-vault
 - **Demo Video:** https://youtu.be/jOU1YCBdTnA
-- **Runtime Note:** The hosted evaluator is explicitly labeled demo mode; dated official live ClickHouse MCP and Gemini smoke evidence is included in the repository.
+- **Runtime Note:** The public evaluator runs Gemini 3.7 Flash live through Vertex AI. Its ClickHouse provider remains explicitly labeled demo/unconfigured; dated authenticated `mcp-clickhouse` evidence is included separately in the repository.
 
 ## What It Does
 1. **Columnar Vector Search**: Uses ClickHouse's vector distance functions to compute cosine similarity across 768-dim frame embeddings.

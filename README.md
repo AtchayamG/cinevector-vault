@@ -89,8 +89,7 @@ Licensed under the **[MIT License](LICENSE)**.
 **Live judge demo:** https://cinevector-vault.vercel.app/  
 **Public source:** https://github.com/AtchayamG/cinevector-vault
 
-A public FastAPI deployment is hosted on Vercel using the provided configuration.
-The public deployment defaults to honest demo fixtures (RUNTIME_MODE=demo).
+The stable Vercel judge URL proxies the latest Cloud Run backend. Public health reports `runtime_mode: hybrid`: Gemini 3.7 Flash is live through Vertex AI ADC, while ClickHouse remains explicitly labeled demo until production ClickHouse credentials are connected. Separate authenticated `mcp-clickhouse` evidence is documented in the repository.
 
 1. Import your project into Vercel.
 2. In the project settings, set the **Root Directory** to `backend`.
