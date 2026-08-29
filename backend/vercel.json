@@ -1,6 +1,9 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "env": {
-    "RUNTIME_MODE": "demo"
-  }
+  "rewrites": [
+    {
+      "source": "/:path*",
+      "destination": "https://cinevector-vault-live-79552606912.us-central1.run.app/:path*"
+    }
+  ]
 }
