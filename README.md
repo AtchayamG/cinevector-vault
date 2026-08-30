@@ -14,7 +14,7 @@
 ---
 
 ## 🌟 Overview
-**CineVector Vault** is a multimodal media data lake and vector continuity search engine. The default public evaluator uses deterministic local fixtures. Official **mcp-clickhouse** connected to a live ClickHouse cluster and **Gemini 3.7 Flash** are implemented as live integration paths. Official mcp-clickhouse was proven against managed ClickHouse Cloud 26.2.1.558 and, independently, a self-hosted ClickHouse 25.8.31.9 cluster. The current Gemini path targets 3.7 Flash; the separate authenticated Gemini smoke used 2.5 Flash and proves the SDK path, not a 3.7 call. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
+**CineVector Vault** is a multimodal media data lake and vector continuity search engine. The public evaluator runs **Gemini 3.7 Flash** through Vertex AI and official **mcp-clickhouse** against managed ClickHouse Cloud 26.2.1.558. A dedicated server-enforced read-only identity protects the live evidence database. It addresses a key challenge in AI filmmaking: detecting character wardrobe, facial, and lighting drift across video takes.
 
 ---
 
@@ -89,7 +89,7 @@ Licensed under the **[MIT License](LICENSE)**.
 **Live judge demo:** https://cinevector-vault.vercel.app/  
 **Public source:** https://github.com/AtchayamG/cinevector-vault
 
-The stable Vercel judge URL proxies the latest Cloud Run backend. Public health reports `runtime_mode: hybrid`: Gemini 3.7 Flash is live through Vertex AI ADC, while ClickHouse remains explicitly labeled demo until production ClickHouse credentials are connected. Separate authenticated `mcp-clickhouse` evidence is documented in the repository.
+The stable Vercel judge URL proxies Cloud Run revision `cinevector-vault-live-00003-w8l`. Public health reports `runtime_mode: live`; a public SQL request through official `mcp-clickhouse` returned ClickHouse Cloud version `26.2.1.558` and three stored reference rows. See `docs/evidence/PUBLIC_RUNTIME_VERIFICATION_2026-08-30.md`.
 
 1. Import your project into Vercel.
 2. In the project settings, set the **Root Directory** to `backend`.
