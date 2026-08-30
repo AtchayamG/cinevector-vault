@@ -7,14 +7,16 @@
 - **Format:** 1920×1080 @ 24 fps (H.264 / AAC 48 kHz stereo)
 - **Audio:** Native Veo action Foley (energy hum, repulsor blast, sonic rush, rubble impact)
 - **Generation Model:** `veo-3.1-fast-generate-001` on Google Cloud Vertex AI
-- **Master Reel SHA-256:** `df66d91f230c58ac31c0295cbb8d2a803a75328b38216a58fadac566f66ea05d`
-- **Public Asset URL:** `__PENDING_PUBLIC_ASSET_URL__`
+- **Published Scored Master SHA-256:** `e201250e37f8b7c0b3555db9a1001b420f81ac4c28fff011cc590e04398d2013`
+- **Public Asset URL:** `https://youtu.be/pbyWb7vMHT4`
 
 ---
 
 ## ⚠️ Truthful Disclosure & Claim Boundaries
 
 > **Disclaimer:** Supplemental pre-generated cinematic evidence created ahead of time with Veo 3.1 Fast on Vertex AI. The hosted application streams a fixed verified artifact; it does not generate this video on request.
+
+The published reel is the originality-remediated scored master. The superseded first cut is retained only as non-public diagnostic provenance.
 
 ### What This Artifact Demonstrates:
 1. **Multi-Hero Action Continuity:** Establishing independent hero introductions across distinct locations without character morphing.

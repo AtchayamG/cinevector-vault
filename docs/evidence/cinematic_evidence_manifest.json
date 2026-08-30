@@ -9,9 +9,11 @@
   "resolution": "1920x1080",
   "fps": 24,
   "audio_format": "AAC 48kHz stereo (Native Veo Foley)",
-  "master_filename": "nexus_vanguard_multiverse_trailer.mp4",
-  "master_sha256": "df66d91f230c58ac31c0295cbb8d2a803a75328b38216a58fadac566f66ea05d",
-  "public_asset_url": "__PENDING_PUBLIC_ASSET_URL__",
+  "master_filename": "nexus_vanguard_scored_final.mp4",
+  "master_sha256": "e201250e37f8b7c0b3555db9a1001b420f81ac4c28fff011cc590e04398d2013",
+  "scored_master_filename": "nexus_vanguard_scored_final.mp4",
+  "scored_master_sha256": "e201250e37f8b7c0b3555db9a1001b420f81ac4c28fff011cc590e04398d2013",
+  "public_asset_url": "https://youtu.be/pbyWb7vMHT4",
   "truthful_disclaimer": "Supplemental pre-generated cinematic evidence created ahead of time with Veo 3.1 Fast on Vertex AI. The hosted application streams a fixed verified artifact; it does not generate this video on request.",
   "shots": [
     {

@@ -13,6 +13,7 @@ A multimodal media data lake powered by official ClickHouse MCP (`mcp-clickhouse
 - **Live Application:** https://cinevector-vault.vercel.app/
 - **Public Repository:** https://github.com/AtchayamG/cinevector-vault
 - **Demo Video:** https://youtu.be/jOU1YCBdTnA
+- **Supplemental Cinematic Evidence:** https://youtu.be/pbyWb7vMHT4 — fixed, pre-generated Veo continuity reel; ClickHouse live integration is demonstrated separately in the application and primary demo.
 - **Runtime Note:** The public evaluator runs Gemini 3.7 Flash through Vertex AI and official `mcp-clickhouse` against ClickHouse Cloud using a dedicated read-only database identity. Public end-to-end evidence is recorded in `docs/evidence/PUBLIC_RUNTIME_VERIFICATION_2026-08-30.md`.
 
 ## What It Does
