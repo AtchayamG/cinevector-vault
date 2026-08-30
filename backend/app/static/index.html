@@ -347,7 +347,7 @@
       try {
         const res = await fetch('/api/v1/health');
         const data = await res.json();
-        currentMode = data.mode ? data.mode.toLowerCase() : 'demo';
+        currentMode = (data.runtime_mode || data.mode || 'demo').toLowerCase();
         const resBox = document.getElementById('result-box');
 
         resBox.innerHTML = '';
