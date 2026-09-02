@@ -91,6 +91,8 @@ Licensed under the **[MIT License](LICENSE)**.
 
 The stable Vercel judge URL proxies Cloud Run revision `cinevector-vault-live-00003-w8l`. Public health reports `runtime_mode: live`; a public SQL request through official `mcp-clickhouse` returned ClickHouse Cloud version `26.2.1.558` and three stored reference rows. See `docs/evidence/PUBLIC_RUNTIME_VERIFICATION_2026-08-30.md`.
 
+**Judging availability:** ClickHouse Support case `00052860` confirmed the organization trial is extended through **October 10, 2026**, covering the complete judging window through October 8.
+
 1. Import your project into Vercel.
 2. In the project settings, set the **Root Directory** to `backend`.
 3. Vercel will automatically use `backend/vercel.json` and deploy `app.main:app` via `@vercel/python`.

@@ -3,7 +3,7 @@
 **Target Hackathon:** Google Cloud "Agentic Cinema: The Blockbuster Hackathon" (Devpost)  
 **Assigned Category:** **ClickHouse Track** ($7,500 1st Place)  
 **Application Name:** **`CineVector Vault`**  
-**Submitting Status:** ✅ READY FOR SUBMISSION  
+**Submitting Status:** ✅ SUBMITTED AND JUDGE-READY
 
 ---
 
@@ -50,6 +50,8 @@ Track2_ClickHouse_CineVector_Vault/
 ---
 
 ## 4. Verification & Testing Commands
+
+ClickHouse Support case `00052860` confirmed on 2026-09-01 that the organization trial is extended through 2026-10-10. This covers the complete judging window through 2026-10-08; routine availability monitoring is the only remaining operational action.
 
 ### A. Run Automated Backend Tests
 ```bash
